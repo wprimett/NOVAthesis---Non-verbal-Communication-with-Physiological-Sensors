@@ -8,7 +8,7 @@
 
 \typeout{NT FILE chapter2.tex}
 
-\chapter{Overview of Theoretical and Technical Concepts}
+\chapter{Theoretical and Technical Concepts}
 \label{cha:technical_concepts}
 
 \section{Non-verbal Communication with Physiological Sensors: The Aesthetic Domain of Biosignals and Neural Networks}
@@ -21,15 +21,45 @@
 
 \subsection{Non-Verbal Communication}
 
+Non-verbal communication is an umbrella term used to distinguish modalities of interpersonal exchange that are independent from speech, many of which are unconsciously transmismitted during social relations, this encompasses a variety of modalities that convey emotions, feelings, and messages. Behavioural analysis grounded in psychology research calls attention to the emotional information disclosed by non-verbal social cues, in particular, actions that are involuntary. Computing and Physiology researcher Alex Petland frames these as \textit{Honest Signals} to articulate a level of emotional authenticity while complimentary studies note the permitted degree of ambiguity.
+
+\textit{“The unconscious quality of particular informative non-verbal behavioural cues grants a level of authenticity”}
+\printpublicaiton{pentland_honest_2010} \cite{pentland_honest_2010}
+% Pentland et al. 2010. Honest Signals: How They Shape Our World
+
 \subsection{Physiological Sensors}
+
+Physiological signals provide a measurement of biophysical, biomechanical and bioelectrical changes that occur from within the body. These are widely used to monitor a variety non-verbal social cues, measuring the ‘invisible’ signals that are otherwise not explicitly perceived. 
+
+Non-verbal behaviour is commonly associated with “body-language”, aspects such as posture, gaze and other observable traits. But how about bodily signals that are invisible from a third-person perspective? Physiological sensors (or biosignals) are capable of monitoring these internal changes, that can be associated with an emotional response, typically in accordance to a measure of arousal, that operates on a linear scale.
+
+\textit{“In other words, nonverbal behavioral cues are the physical, machine detectable evidence of affective phenomena not otherwise accessible to experience, an ideal point for technology and human sciences to meet.”}
+\printpublicaiton{vinciarelli_towards_2011} \cite{vinciarelli_towards_2011}
+% Vinciarelli et al. ’Towards a Technology of Nonverbal Communication: Vocal Behavior in Social and Affective Phenomena’
+
+% These signals are traditionally represented as a low-dimensional format. For example, one ECG sensor will pick up a uniform series of amplitudes over time, isolating the electrical response from the heart, separated from the surroundings
 
 \subsection{The Aesthetic Domain}
 
+The Aesthetics Domain, to put forward such a heavily loaded concept, we can reduce this to its literal derivative of \textit{aístesis}, which describes the process of perceiving through sensory engagement. Whilst this phenomenon is continually re-evaluated, it can be assumed to operate on a scale of order and complexity. This is essentially how we as humans are able to perceive complex information contained in our surroundings, reducing to a meaningful inference, through a process of learning as a result of personal experiences. From this, we consider ambiguity as an affordance for expressive exchange. In \textit{Two Modernist Approaches to Linking Art and Science}, Eric R. Kandel ties relevance to the art history concept of the beholder's share to the biological understanding of the human mind \cite{kandel_two_2013}.
+
+\textit{"Human emotional life is rich; we can experience a huge number of emotions, possibly a continuum, not just a few for which we have words, like fear, sadness, joy, etc."}
+\printpublicaiton{perlovsky_aesthetic_2014} \cite{perlovsky_aesthetic_2014}
+
+% Kris & Kaplan. 1952. Aesthetic Ambiguity
+
 \subsection{Neural Networks}
 
-\section{Affective Computing}
+An artificial neural network aims to simulate the core functions of the human brain, used to define complex input-output patterns, using previously learned information to comprehend sensory inputs. Modern Data Science practices have validated Neural Networks as an effective model for associating human-understandable contexts to ambiguous sensor data. Furthermore, applying an iterative, human-centred approach to augment aesthetic potentials in biofeedback contexts
 
-\section{Physiological Signals}
+Combined with the previous components, we consider the human-like qualities of Artificial Neural Networks as the technical foundation towards emotional engagement with physiological data. As Modern Data Science practices have already validated Neural Networks as an effective model for associating human-understandable contexts to ambiguous sensor data, we reflect upon human-centred augmentations by which the user is immersed in the learning process. 
+
+\textit{"Treating embodied knowledge as something that cannot be accessed directly and only through examples of action (treating the learning algorithm as a “black box”) is therefore missing a lot.” }
+M. Gillies, ‘Understanding the Role of Interactive Machine Learning in Movement Interaction Design’
+
+% \section{Affective Computing}
+
+% \section{Physiological Signals}
 
 \subsection{Physiological Signal Categories} 
 \label{subsec:catagories}
@@ -40,11 +70,11 @@ In this document, we will cover a range of Physiological Signals in the context 
 
 In addition to the signal categories described in section \ref{subsec:catagories}, we'll also take into account the controllability a subject has on a given signal, dependant on the source, which can be classified as Voluntary, Indirect or Involuntary. Through Voluntary sources, the user can intentionally manipulate the signal with a high degree of freedom. For example, muscle contractions or join displacements, activities that are associated with the somatic nervous system. Indirect (or Mixed) sources grant the user partial control where as Involuntary sources indicate that there's almost no control over the outcome \cite{da_silva_biosignal_2017}. Involuntary sources are transmitted from the autonomic nervous system as they occur without conscious control \cite{lenman_human_1975}.
 
-\subsection{Electromyography}
+% \subsection{Electromyography}
 
-\subsection{Electrocardiography}
+% \subsection{Electrocardiography}
 
-\subsection{Electrodermal activity}
+% \subsection{Electrodermal activity}
 
 \section{Transdisciplinary research culture and Biomedical Engineering}
 
@@ -66,7 +96,7 @@ A fundamental objective of this work is to explore methods of communicating emot
 
 Non-verbal signals can be described as communicative or informative. A signal is produced consciously in effort to convey a specific meaning is communicative. On the other hand, when the user emits signals unconsciously, without an intended meaning, it is informative \cite{vinciarelli_towards_2011}. The unconscious quality of particular informative non-verbal behavioural cues grants a level of authenticity, advocating the label of \textit{honest signals} by Alex Pentland \cite{pentland_honest_2010}.
 
-\subsection{Physical Gestures and Postures}
+\subsection{Embodied Emotions}
 
 The association between emotions and bodily expression in human and animals was first described by Darwin \cite{darwin_expression_2013}, which has been followed by numerous studies in social psychology, human development (and more recently HCI \cite{alaoui_movement_2012, gillies_creating_2018, fdili_alaoui_strategies_2015}) to address the communication of emotions from the human body \cite{gunes_lab_2008}. In this work, we will be working with the existing non-verbal modalities of gesture and posture, which are considered aspects of kinesics. They are both executed from the body and have the capacity to transmit social messages, but can be differentiated by their degree of intentionally and kinematic quality. Gestures are often (though not always) associated with movement and classed as communicative, as they are performed consciously \cite{vinciarelli_towards_2011}. A subcategory of gestures, known as \textit{adaptors} are performed unconsciously which may indicate changes in arousal or anxiety \cite{hans_kinesics_2015, neff_dont_2011}. 
 
@@ -74,7 +104,7 @@ Social signals addressed from postures are commonly a result of unconscious beha
 
 \section {Measuring Aesthetics}
 
-An enquiring into defining aesthetics and digital representation could rightfully be reserved for an entire thesis in of itself, in which circumstance would there remain indeterminate concepts beyond its conclusion. To overcome an ever-expanding topic, we will begin by establishing a firm aesthetic criteria based upon two perceptual qualities:
+The enquiry into defining aesthetics and digital representation could rightfully be reserved for an entire thesis in of itself, in which circumstance would there remain indeterminate concepts beyond its conclusion. To overcome an ever-expanding topic, we will begin by establishing a firm aesthetic criteria based upon two perceptual qualities:
 
 \begin{itemize}
     \item \textbf{Spatial:} The organisation of distinct elements based on their relative position to one another.
@@ -107,5 +137,5 @@ By navigating such theoretical progressions in alternative research fields, we c
 
 These concepts align with non-representational views of cognition, as it does not rely on a reductionist model of emotion.  
 
-\section{Conclusion}
+% \section{Conclusion}
 
