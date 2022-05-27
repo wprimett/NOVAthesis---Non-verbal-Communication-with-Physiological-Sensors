@@ -20,59 +20,14 @@
 
 In this chapter, we explore the current state of the art and examine existing research efforts related to Non-verbal Communication and Physiological Data. We divide the research topics into the following areas, namely: the social impact of sharing physiological activity in human-human interactions, the appropriation of biosignals in creative practice and performance contexts, and methods for inferring emotional states from physiological data. After presenting a comprehensive collection of studies, we articulate a personal perspective, justifying the intersection of these topics and initiate the design principles that materialise in the research outcomes described in Chapters \ref{cha:Preliminary_Actions} and \ref{cha:case_studies} that following.
 
-% \section{Social Signals}
-
-
 \section{Communication and Connection}
 \label{lit_review:biosignals_sharing}
-
 
 In the pursuit for communication with embodied sensors, we can direct our interest to the topic of sharing biosignals or \textit{foreign live biofeedback} to support social interactions, where users are provided real-time feedback on another person's physiological state, as it is described in Ewa Lux et al.'s \cite{lux_live_2018} review article, listing 20 use-cases under this category. This includes a number of studies on sharing physiological signals (predominately heartbeats) between users to enhance remote presence. Such feelings of interpersonal connectedness can be accredited to a kind of anatomical transparency. Beyond that, however, it's not well understood on an emotional level the extent at which this information can be interpreted by a foreign body.
 
 In \citeauthor{slovak_understanding_2012}'s study into sense-making with interpersonal biofeedback for heart rate, possible interpretations are classed as HR as information and HR as connection \cite{slovak_understanding_2012}. The article compares visual and aural systems for this purpose, showing that auditory feedback of the cardiovascular activity can support HR as connection in a remote setting where greater physical distances actually improved the feeling of connectedness, by which \textit{"participants suggested that less context was better"}. With HR as information on the other hand, \textit{"participants consistently said that there was a need for context in order for the HR to be informative"}. Regarding this methodology, we note that a crucial dependency of the bonding experience and comfort lies within the pre-existing relationship between users, implying that this manner of HR sharing becomes less viable when situated between between strangers. Similar works have considered the willingness of exposing private physiological information such as heart rate (e.g. \cite{walmink_displaying_2013}). Confronting such challenges that come with public space interventions, \citeauthor{howell_life-affirming_2019}'s study into sharing heart sounds explores the convergence between intimacy and anonymity in a way that encourages a co-present affirmation during momentary encounters \cite{howell_life-affirming_2019}.
 
 Examples of shared biofeedback have been documented using other input and output modalities, such as skin conductance (EDA) and respiration being combined with light, visuals, and haptic forms of feedback \cite{frey_breeze_2018,howell_biosignals_2016,ashford_eeg_2019}. Among various configurations, these case studies are aligned towards an interpersonal awareness of emotional states, without the need to define them literally. While these research outcomes bring affirmation into fostering social connectedness, we take into account use-cases for which subjects are able to to convey contextual information from embodied sensor data. For example, inferring emotional traits from visual representations of another user's heart rate when supplemented with the events of a board game \cite{frey_remote_2016}. During gameplay, participants associated changes in other player's heart rate with bluffing, being upset, stress and even happiness.
-
-\section{Wearables in Creative Practice}
-\label{lit_review:biosignals_creativity}
-
-The integration of biosignals in creative pr active, artistic performance in particular provides motivation to present physiological activity in creative ways for which an audience can empathise with the performer while they are being exposed to their inner state, as explained by \citeauthor{francoise_designing_2017} \cite{francoise_designing_2017}. We review some examples that achieve this by utilising the aesthetic value of physiological sensor data to convey sort of emotional meaning. While experiencing a performance, and the audience is engaged, the performer-audience relationship becomes a collaborative process, taking upon the \textit{beholder's involvement}, asserting that it's the role of perceiver is to create meaning \cite{kandel_age_2012}.
-
-An example of presenting bodily data as performative artefact is the appropriation of physiological sensors by musicians to generate sound \cite{aly_appropriating_2021}.
-\textbf{examples of instruments}
-This work is commonly observed under the NIME community, where the given systems are to be interpreted as musical instruments, and user can develop virtuous control through attentive practice \cite{wu_supporting_2017}. A recent review by \citeauthor{giomi_somatic_2020}, provides insights into somatic sonification approaches. While continuing to work with sound-based interactions, these are more suitable to dance performances, where by the user is performing with their body on stage, and the system is used to better communicate their experience, though motor actions can also be influenced by sound in this context.
-
-Different types of inputs can be used to obtain the respective dance data sets. Alaoui and colleagues \cite{fdili2017seeing} for example distinguish among (i) positional data which are retrieved by employing motion capture systems; (ii) movement dynamics (such as acceleration/deceleration), which are recorded by means of inertial sensors; and (iii) physiological information, which can be obtained from biosignal sensor technologies.
-
-% One relevant example is the work of Mark Coniglio with MidiDancer (1989), a software that allowed a performer to control music \cite{Troikaranch}. A more recent example is the work of Frieder Weiss with the system EyeCon (2004), which allows movement to control several aspects of a performance \cite{wechsler2004eyecon}. Dance artists, researchers and educators have been extensively exploring interactive digital technologies in workshop and rehearsal situations \cite{dinkla2002dance}, and in public performances and installations \cite{latulipe2010exploring}.
-
-% Communicating sensation to audience
-
-% Sound movement review
-% \cite{giomi_somatic_2020}
-
-% from chapter 6.2.2
-Zhou et al. have recently conducted a systematic review of the past twenty years of dance literature in HCI \cite{zhou_dance_2021}. They identified four main categories of technological approaches: Physiological Sensing; Multisensory Perception; Movement Quality; and Agent Collaboration. Fdili Alaoui et at. created a methodology to combine multimodal capture with recognition of Laban Effort qualities \cite{fdili_alaoui_seeing_2017}. They distinguished among different approaches to collect information from the body: Positional data retrieved by motion capture; Movement dynamics recorded by inertial sensors; and Physiological information obtained from biosignal sensors. Rostami et al. \cite{rostami_bio-sensed_2017} created five design concepts for interactive performance adopting bio-sensing and bodily tracking technologies. Aly et al. conducted a review of biosensor modalities in the scope of HCI, which explains the affordances of EMG signals to depict significant motor actions that are revealed through internal muscular functions. \cite{aly_appropriating_2021}.
-
-The following the state-of-the-art review points to a number of use-cases that incorporate contemporary machine learning methods. To summarise these motives, we can assume a mutual view by which the output of the machine learning system is considered to play a part of the performance, which can achieved through audiovisual augmentation that compliments the movement, or even more literally in the form of an artificial agent that performs on stage.
-
-\subsection{Therapeutic Qualities of Artistic Creation}
-
-As we consider the function of aesthetics in representing one's physiological activity, we are able to proceed with our underlying research goal of supporting non-verbal communication strategies. Highlight the relevance of non-verbal communication in therapeutic settings, so in addition to performance contexts, we are also interested in arts-therapy practices, which also rely on aesthetic engagement.
-
-In the following article entitled, \textit{"The Aesthetic Turn in Mental Health"}, \citeauthor{samaritter_aesthetic_2018} assess the potential benefits music therapy and dance movement therapy can have on one's mental well-being, recognising the sensory-expressive experience of the maker as oppose to an audience \cite{samaritter_aesthetic_2018}. Five core themes are derived from a literature review and comments taken from experts in the field, which are briefly as follows: requiring embodied presence, to apply the senses kinaesthetically and musically; somatic resources, supporting anatomical, visceral and neuropsychological functioning; articulation and expression of emotional contentl; sensitivity to non-verbal communication, and enactive empathy; The non-verbal or pre-verbal character of aesthetics to support diversity and cross-cultural interaction.
-
-Amongst these themes, considered harmonious with our research goals, we can interpret that in these scenarios, that collective sense making can be considered part of the experience. Here, we can make a connection between \citeauthor{gaver_drift_2004}'s' Ludic Design principles \cite{gaver_drift_2004} with the function of \textit{``enactive engagement''}, encouraging participants to experiment freely with new possibilities, cultivating a bond with the system and one another. While it is not explicitly mentioned here, we may suggest that a creative provocation can help foster the intergroup relationships where participants are not already acquainted i.e strangers amongst each others. Related studies have observed children exercising non-verbal forms of communication to maintain group dynamics \cite{ylonen_kinaesthetic_2009}, engaging with foreign communities through common dances, experiencing shared embodiment \cite{hoppu_other_2013}, staying responsive to partnering movements though kinaesthetic listening \cite{ylonen_bodily_2003}, and how the non-judgemental attitude applies to arts-therapy helps participants share stories with each other \cite{kalmanowitz_out_2016}.
-
-The article also establishes the essential role of an experienced somatic practitioner that is given the responsibility of guiding these sessions in a safe and constructive manner. \textit{Somatic connoisseurship} is granted to those that hold a comprehensive training and experience in one or more relevant body-centred practices, which certifies the appropriate facilitation of such activities to somatic laypersons \cite{samaritter_aesthetic_2018}.
-
-% \begin{itemize}
-% \item Arts support and require embodied presence
-% \item Arts-therapy appeal to somatic resources, supporting anatomical, visceral and neuropsychological functioning
-% \item Arts support articulation and expression of emotional content.
-% \item Arts support sensitivity to non-verbal communication between participants. Furthermore, enactive empathy can be considered a core aspect arts-therapy practices.
-% \item The non-verbal or pre-verbal character of aesthetics was considered to support diversity and cross-cultural interaction
-% \end{itemize}
 
 \section{Aesthetics and Abstract Representation}
 \label{lit_review:abstract}
@@ -104,8 +59,48 @@ The expressive utility of abstract representation has been taken fondly by inter
 % \end{figure}
 
  % Artworks and How Do We Experience Them?}: \url{ https://link.springer.com/content/pdf/10.1007%2F978-3-319-14090-2.pdf}
+% !!! 
+\section{Wearable Technology in Creative Practice}% !!!
+\label{lit_review:biosignals_creativity}
 
-\section{Affective Computing: Inferring Emotional states from Physiological Data}
+The integration of wearable devices in creative practice, artistic performance in particular, provides motivation to present physiological activity in provocative ways for which an audience can empathise with the performer while they are being exposed to their inner state, as explained by \citeauthor{francoise_designing_2017} \cite{francoise_designing_2017}. Such performer-audience relationships can be seen as a collaborative process in on account of the \textit{beholder's involvement}, asserting that it's the role of perceiver is to create meaning \cite{kandel_age_2012}. In this section, we review some examples that achieve this by utilising the aesthetic value that's extracted from wearable sensor data to convey sort of emotional meaning. 
+
+An example of presenting bodily data as performative artefact is the appropriation of physiological sensors by musicians to generate sound \cite{aly_appropriating_2021}.
+\textbf{examples of instruments}
+This work is commonly observed under the NIME research community, where the given systems are to be comparable to traditional musical instruments, granting the the development of virtuous control through attentive practice over time \cite{wu_supporting_2017}. A recent review by \citeauthor{giomi_somatic_2020}, provides insights into somatic sonification approaches. While continuing to work with sound-based interactions, these are more suitable to dance performances, where by the user is performing with their body on stage, and the system is used to better communicate their experience, though motor actions can also be influenced by sound in this context.
+
+Different types of inputs can be used to obtain the respective dance data sets. Alaoui and colleagues \cite{fdili2017seeing} for example distinguish among (i) positional data which are retrieved by employing motion capture systems; (ii) movement dynamics (such as acceleration/deceleration), which are recorded by means of inertial sensors; and (iii) physiological information, which can be obtained from biosignal sensor technologies.
+
+% One relevant example is the work of Mark Coniglio with MidiDancer (1989), a software that allowed a performer to control music \cite{Troikaranch}. A more recent example is the work of Frieder Weiss with the system EyeCon (2004), which allows movement to control several aspects of a performance \cite{wechsler2004eyecon}. Dance artists, researchers and educators have been extensively exploring interactive digital technologies in workshop and rehearsal situations \cite{dinkla2002dance}, and in public performances and installations \cite{latulipe2010exploring}.
+
+% Communicating sensation to audience
+
+% Sound movement review
+% \cite{giomi_somatic_2020}
+
+% from chapter 6.2.2
+Zhou et al. have recently conducted a systematic review of the past twenty years of dance literature in HCI \cite{zhou_dance_2021}. They identified four main categories of technological approaches: Physiological Sensing; Multisensory Perception; Movement Quality; and Agent Collaboration. Fdili Alaoui et at. created a methodology to combine multimodal capture with recognition of Laban Effort qualities \cite{fdili_alaoui_seeing_2017}. They distinguished among different approaches to collect information from the body: Positional data retrieved by motion capture; Movement dynamics recorded by inertial sensors; and Physiological information obtained from biosignal sensors. Rostami et al. \cite{rostami_bio-sensed_2017} created five design concepts for interactive performance adopting bio-sensing and bodily tracking technologies. Aly et al. conducted a review of biosensor modalities in the scope of HCI, which explains the affordances of EMG signals to depict significant motor actions that are revealed through internal muscular functions. \cite{aly_appropriating_2021}.
+
+The following the state-of-the-art review points to a number of use-cases that incorporate contemporary machine learning methods. To summarise these motives, we can assume a mutual view by which the output of the machine learning system is considered to play a part of the performance, which can achieved through audiovisual augmentation that compliments the movement, or even more literally in the form of an artificial agent that performs on stage.
+
+\subsection{Therapeutic Qualities of Artistic Creation}
+
+As we consider the function of aesthetics in representing one's physiological activity, we are able to proceed with our underlying research goal of supporting non-verbal communication strategies. Highlight the relevance of non-verbal communication in therapeutic settings, so in addition to performance contexts, we are also interested in arts-therapy practices, which also rely on aesthetic engagement.
+
+In the following article entitled, \textit{"The Aesthetic Turn in Mental Health"}, \citeauthor{samaritter_aesthetic_2018} assess the potential benefits music therapy and dance movement therapy can have on one's mental well-being, recognising the sensory-expressive experience of the maker as oppose to an audience \cite{samaritter_aesthetic_2018}. Five core themes are derived from a literature review and comments taken from experts in the field, which are briefly as follows: requiring embodied presence, to apply the senses kinaesthetically and musically; somatic resources, supporting anatomical, visceral and neuropsychological functioning; articulation and expression of emotional contentl; sensitivity to non-verbal communication, and enactive empathy; The non-verbal or pre-verbal character of aesthetics to support diversity and cross-cultural interaction.
+
+Amongst these themes, considered harmonious with our research goals, we can interpret that in these scenarios, that collective sense making can be considered part of the experience. Here, we can make a connection between \citeauthor{gaver_drift_2004}'s' Ludic Design principles \cite{gaver_drift_2004} with the function of \textit{``enactive engagement''}, encouraging participants to experiment freely with new possibilities, cultivating a bond with the system and one another. While it is not explicitly mentioned here, we may suggest that a creative provocation can help foster the intergroup relationships where participants are not already acquainted i.e strangers amongst each others. Related reports have observed children exercising non-verbal forms of communication to maintain group dynamics during dance-movement therapy \cite{ylonen_kinaesthetic_2009}, engaging with foreign communities through common dances, experiencing shared embodiment \cite{hoppu_other_2013}, staying responsive to partnering movements though kinaesthetic listening \cite{ylonen_bodily_2003}, and how a non-judgemental attitude helps participants to share stories with one other during arts-therapy sessions \cite{kalmanowitz_out_2016}.
+
+The article also establishes the essential role of an experienced somatic practitioner that is given the responsibility of guiding these sessions in a safe and constructive manner. \textit{Somatic connoisseurship} is granted to those that hold a comprehensive training and experience in one or more relevant body-centred practices, which certifies the appropriate facilitation of such activities to somatic laypersons \cite{samaritter_aesthetic_2018}.
+
+% \begin{itemize}
+% \item Arts support and require embodied presence
+% \item Arts-therapy appeal to somatic resources, supporting anatomical, visceral and neuropsychological functioning
+% \item Arts support articulation and expression of emotional content.
+% \item Arts support sensitivity to non-verbal communication between participants. Furthermore, enactive empathy can be considered a core aspect arts-therapy practices.
+% \item The non-verbal or pre-verbal character of aesthetics was considered to support diversity and cross-cultural interaction
+% \end{itemize}
+\section{Affective Computing: Inferring Emotional states from Physiological Data}% !!! 
 \label{alit_review:affective_computing}
 
 In this section, we will summarise the common practices found in Affective Computing research over the past two decades and how this has evolved to the current state-of-the-art. The methods discussed in the following section are used as a reference to the typical assumptions adopted in the field, as for the rest of the thesis, we will be receptive to alternative views for designing emotionally informed systems, leveraging principles embraced by \citeauthor{hook_interactional_2008} \cite{hook_interactional_2008}, \citeauthor{barrett_functionalism_2017} \cite{barrett_functionalism_2017} and others cited throughout.
@@ -113,9 +108,10 @@ In this section, we will summarise the common practices found in Affective Compu
 Given an intriguing appeal for developing emotionally-informed relationships between humans and machines, the attention here is directed specifically to the physiological constructs of emotion and the appropriation of wearable sensors. The theoretical validation of which being partly derivative to the theories of emotions put fourth by William James and Carl Lange, claiming that emotions are the result of bodily changes triggered by external stimuli \cite{james_principles_1890,cannon_james-lange_1927}. Many have come out to challenge these ideas, with more advanced perspectives openly being addressed in Picard's original report, complimenting the inherent complexities and open-debate around the subject of emotional technologies.
 
 \textbf{give examples}
-Among these, the informational outlook of emotion adopted in these examples has since been contrasted with the interactional approach used emphasise the social aspects of emotions.
 
-The interactional approach asserts that though emotion has biophysical aspects, it is dynamically experienced and appreciates \textit{"emotion as a social and cultural product experienced through our interactions"}. Here is room for an affective computing that does not look at the body as \textit{“an instrument or object for the mind, passively receiving sign and signals, but not actively being part of producing them”}, as phrased by \citeauthor{hook_kristina_affective_2012} when referring to dominant paradigms in commercial sports applications \cite{hook_kristina_affective_2012}. However, how to best address bodily movement and engagement beyond measuring cues and signals is unclear. Most studies in affective computing revolve around affect recognition from emotion detection and bodily data classification \cite{bota_review_2019}. Research in this field commonly revolves around the detection of four basic emotions: fear, anger, sadness, and joy \cite{picard_mit_nodate}. Such alternatives can alleviate from the function of mapping discrete emotions into a statistical model bound to universal interpretation, but rather let humans make sense of each other's expressions in subjective ways, ambiguous and contextually adaptive.
+Among these, the informational outlook of emotion adopted in these examples has since been contrasted with an interactional approach that's used emphasise the social aspects of emotions. This can be said to originate from \citeauthor{boehner_how_2007}'s enquiry into affective measurement short after the field came into fruition \cite{boehner_how_2007,boehner_affect_2005}. We find the interactional approach work in compliment with the non-classical view of emotion derived from Lisa Feldman Barrett's writings \cite{barrett_how_2017}, highlighting the role of the perceiver to induce meaningful inference, moving away from discrete categorisation models of emotion.
+
+The interactional approach asserts that though emotion has biophysical aspects, it is dynamically experienced and appreciates \textit{"emotion as a social and cultural product experienced through our interactions"}. Here is room for an affective computing that does not look at the body as \textit{“an instrument or object for the mind, passively receiving sign and signals, but not actively being part of producing them”}, as phrased by \citeauthor{hook_kristina_affective_2012} when referring to dominant paradigms in commercial sports applications \cite{hook_kristina_affective_2012}. However, how to best address non-verbal behaviour beyond measuring cues and signals is unclear. Most studies in affective computing revolve around affect recognition from emotion detection and bodily data classification \cite{bota_review_2019}. Research in this field commonly revolves around the detection of four basic emotions: fear, anger, sadness, and joy \cite{picard_mit_nodate}. Such alternatives can alleviate from the function of mapping discrete emotions into a statistical model bound to universal interpretation, but rather let humans make sense of each other's expressions in subjective ways, ambiguous and contextually adaptive.
 
 % \begin{center}
 % \begin{tabular}{|p{13cm}}
@@ -130,7 +126,6 @@ To summarise, we consider that the interactional view supports the theoretical g
 
 \subsection{Measuring Affect in Social Contexts}
 \label{lit_reivew:ssp}
-
 % Social siganls
 In face-to-face interactions, subjects make use of \textit{"Body Language"} as a form non-verbal communication, assuming actions such as gaze, gestures, posture and navigation of interpersonal space \cite{dobre_immersive_2022}. Psychology literature admits to the limited ability we have as humans to interpret non-verbal behaviours during social interactions \cite{joseph_emotional_2010}. However, by recognising a coordination with emotions and physiological changes \cite{mayer_human_2008}, we can consider sensory interventions as a means to help convey and interpret social cues emitted from other people.
 
@@ -162,7 +157,7 @@ Self-reports are often considered a necessary resource in studies of psychology 
 
 \subsection{The Self-Assessment Manikin}
 
-The Self-Assessment Manikin (SAM) has proven to be a successful method of prescribing emotional responses to a set of pictorial representations, pre-arranged to visualise 5-point scales of valence, arousal and dominance, thus considered highly compatible within the scope of Affective Computing research \cite{zeigler-hill_self-assessment_2017}. The method was introduced as a way of overcoming the semantic dependencies in traditional self-reporting which carry major limitations related to the tedious data organisation required and being poorly adaptable between different languages \cite{zeigler-hill_self-assessment_2017}. However, Where Self-Assessment Manikins provide an effective way of capturing emotional states related to a specific object or event, there remains lacking feasibility for representing traits relating to one´s habitual patterns of emotion.
+The Self-Assessment Manikin (SAM) has proven to be a successful method of prescribing emotional responses to a set of pictorial representations, pre-arranged to visualise 5-point scales of valence, arousal and dominance, thus considered highly compatible within the scope of Affective Computing research \cite{broekens_affectbutton_2013,zeigler-hill_self-assessment_2017}. The method was introduced as a way of overcoming the semantic dependencies in traditional self-reporting which carry major limitations related to the tedious data organisation required and being poorly adaptable between different languages \cite{zeigler-hill_self-assessment_2017}. However, Where Self-Assessment Manikins provide an effective way of capturing emotional states related to a specific object or event, there remains lacking feasibility for representing traits relating to one´s habitual patterns of emotion.
 
 \subsection{Body Maps}
 \textcolor{red}{too long? Can it be split somehow?}
@@ -177,6 +172,10 @@ Nummenmaa et al. conducted a study where over 700 participants we asked to colou
 
 %  \subsubsection{Limitation of Body Maps in HCI}
  Recent literature on soma design has aimed to overcome the temporal limitations of body maps, as “they exist as a snapshot or state representation” \cite{tennent_articulating_2021}. To solve this limitation, Tennent et al. propose the concept of “soma trajectories”: “how a user feels through an interaction, both in body and mind” \cite{tennent_articulating_2021}. In Sections \ref{case_studies:latent_steps} and \ref{case_studies:modi_dis}, we further detail what we perceive as major limitations of body mapping strategies and investigate upon ways of overcoming them.
+ 
+\subsection{Tangible Artefacts}
+
+The visual self-reports described above are assumed to be viewed on paper or digital display. As an alternative we can make a note of efforts into physical self-reporting mediums. Núñez-Pacheco proposed \textit{“the use of tangible materials as a way to articulate experience from the inner self”}, employing the structure of body maps \cite{nunez-pacheco_tangible_2021}. Further, \citeauthor{isbister_sensual_2007} examine the tactile visual qualities of physical objects that can be mapped to emotional imagery with interest to overcome inter-cultural limitation of measuring affect \cite{isbister_sensual_2007}. More recently, developments into tangible mechanisms for logging affect, specifically designed for older adults have shown potentials to support emotional reflection and well-being \cite{gooch_designing_2022}
 
 \subsection{Physiological Responses}
 %  Sensor data as a report
