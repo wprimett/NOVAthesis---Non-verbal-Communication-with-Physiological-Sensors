@@ -1,1 +1,14 @@
-\section{Latency Tests}
+\section{Latency Assessments when Using Multiple Acquisition Sources}
+
+\subsection{Motivation and Objective}
+
+Technological advancements in the field of sensory devices have allowed the collection of various bodily signals such as Acceleration (ACC), Electrocardiogram (ECG), Electromyogram (EMG), and Electrodermal Activity (EDA) using discrete wearable devices. These data streams can be used to validate semantic emotional descriptors based on valence and arousal measurements, linked to the user’s involuntary reactions transmitted by the Autonomic Nervous System (ANS). Where researchers may need to acquire data from many sources at once, we evaluate the use of the BITalino R-IoT, a low-cost sensory device designed for monitoring physiological activity in real-time.
+
+A crucial feature we want researchers to be able to exploit is the ability to acquire and process data from multiple devices simultaneously. This can be configured to monitor the activity of many users or even to place sensors on additional body parts (to track movement from different limbs, for example). To benchmark the hardware capabilities of the device in experimental environments, we carry out tests to evaluate performance, outlining the absolute and relative latency in different conditions. These tests consider the effect of including additional devices to the network and differences in wireless range of data transmission.
+
+\subsection{Preliminary Results}
+
+In our tests, we calculate the time taken for the host computer to receive a response to a stimulus which changes in the analog input on the R-IoT device,which continuously sends data back to the host computer over a shared Wi-Fi network using the Open Sound Control (OSC) protocol. The stimulus signal is distributed to multiple devices which are included in the network to see the effect this has on latency. In addition, the test the impact of increasing the wireless communication distance from 1 metre to 5 metres. The test is run for a duration of several minutes to assess how the latency deviates over time.
+Results: As a base-latency, using one device at a placed a metre away from the wireless receiver, we calculated a mean latency of 8.9ms. This increased to 10.7ms as the distance increased to 5 metres. When we included 4 devices, we saw a 1.1ms average increase in latency at 1 metre and 1.3ms at 5 metres. The average difference in latency among the devices was calculated as 3.2ms and 5.9ms respectively. The latency measurements were deemed stable over the time period of the test with no observable trend. A complete analysis has been published on the BITalino R-IoT documentation page.
+
+We found a slight increase in latency when using more devices on one network and as we increased the distance. Whilst this should be taken account for data synchronisation tasks, we would consider the BITalino R-IoT to be a suitable device for studies collecting physiological data from multiple sources. Our tests also support the use of the OSC protocol for this purpose.
