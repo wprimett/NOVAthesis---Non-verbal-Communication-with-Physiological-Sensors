@@ -12,3 +12,95 @@ In our tests, we calculate the time taken for the host computer to receive a res
 Results: As a base-latency, using one device at a placed a metre away from the wireless receiver, we calculated a mean latency of 8.9ms. This increased to 10.7ms as the distance increased to 5 metres. When we included 4 devices, we saw a 1.1ms average increase in latency at 1 metre and 1.3ms at 5 metres. The average difference in latency among the devices was calculated as 3.2ms and 5.9ms respectively. The latency measurements were deemed stable over the time period of the test with no observable trend. A complete analysis has been published on the BITalino R-IoT documentation page.
 
 We found a slight increase in latency when using more devices on one network and as we increased the distance. Whilst this should be taken account for data synchronisation tasks, we would consider the BITalino R-IoT to be a suitable device for studies collecting physiological data from multiple sources. Our tests also support the use of the OSC protocol for this purpose.
+
+\subsection{An overview of the BITalino R-IoT}
+
+\subsubsection{Device Overview}
+
+The BITalino R-IoT module is the 7th generation of IRCAM's wireless sensor digitizing unit, an essential tool linking motion sensing, gestural recognition and Live Performance Arts. Since 2001, IRCAM aimed to provide a low latency, high data-rate & resolution and stage compatible devices, capable of streaming gestural information to the computer from multiple performers.
+The BITalino R-IoT embeds a 9-axis digital IMU sensor (LSM9DS1) [1] featuring a 3-axis accelerometer, a 3- axis gyroscope and a 3-axis magnetometer, allowing for instance the onboard computation of the absolute orientation of the module in space. The sensor is attached to the SPI port to sample the 16-bit motion data at high speed. In addition to this, there are two 12-bit ADC inputs, compatible with the BITalino sensor modules. To ease the reading of this documentation, we will refer from now to the BITalino R-IoT as R-IoT. More information about the device can be found in the official documentation1.
+
+\subsubsection{Wireless Communication Methods}
+Out of the box, the R-IoT is programmed to transmit data over Open Sound Control . This is a communication protocol for communication among computers, sound synthesizers, and other multimedia devices that is optimized for modern networking technology (OSC)\footnote{For further information please visit \url{http://opensoundcontrol.org/}.}. The main features include the following:
+\begin{itemize}
+  \item Open-ended, dynamic, URL-style symbolic naming scheme
+  \item Symbolic and high-resolution numeric argument data
+  \item Pattern matching language to specify multiple recipients of a single message
+  \item High resolution time tags
+  \item 'Bundles' of messages whose effects must occur simultaneously
+\end{itemize}
+
+With the default configuration, each device will send an array of 21 float values every 5 milliseconds. This array includes motion data from the 9-axis IMU, as well as the analog inputs when are coupled with an OSC message address that includes the ID number of the device. We can assign individual ID numbers to each device in the network to separate the incoming data within the host computer.
+
+\subsection{Experimental Protocol}
+
+% \subsection{Experiment Objectives}
+In our tests, we calculate the time taken for the host computer to receive a response to a stimulus which changes in the analog input on the R-IoT device. The stimulus signal is distributed to multiple devices which are included in the network to see the effect this has on latency. The test is run for a duration of several minutes to assess how the latency deviates over time.
+
+\subsubsection{Method}
+
+\subsubsubsection{Reference Signal and Timestamps}
+The stimulus is originally triggered from the host computer, which sends single byte messages to a teensy 3.2 board\footnote{Teensy 3.2: \url{https://www.pjrc.com/store/teensy32.html}} via USB serial. Upon receiving a message from the host computer, the teensy board will output either 3.3 or 0 volts that is put through a voltage divider before reaching the analog input of the R-IoT device. The R-IoT then sends OSC packets (containing the analog input value) back to the host computer via a TP- Link MR3020 Wi-Fi router. The stimulus signal is set to switch every second, resulting in an oscillation of 0.5 Hz.
+
+% Figure 1
+
+A timestamp is logged at t0, the moment the trigger message is sent from the host computer. Another is logged at t1, when the change is received in the incoming OSC message. From here, we define the latency as t1 – t0 for each instance of a trigger message.
+This approach is partially inspired by the closed-loop latency tests performed by Sebastian Madgwick for the x-OSC device [2], where a square wave is fed into the analog input of the device and outputted into a frequency counter to measure latency. We acknowledge that this method is not as accurate due to the small latency that occurs between the host computer and the Teensy, which is covered in section [section]. However, we consider this a low-cost solution that can be more easily replicated for the user’s specific conditions and environment.
+
+% \subsubsubsection{Multiple Device Setup}
+\paragraph{Multiple Device Setup}
+To test multiple devices simultaneously, we feed to the same reference signal from the Teensy to many R- IoTs. The devices are configured to stream data through the same Wi-Fi router, where the data is addressed by the ID number of each device.
+
+Figure 2 Feeding Reference Signal to Multiple R-IoTs
+
+\paragraph{Device Firmware}
+Each device is flashed with the default firmware, which implements algorithms to compute the absolute orientation of the device from the raw IMU data, proving quaternions and Euler angles every time a data packet is transmitted. For this reason, our tests can be considered to account for the latency that occurs when retrieving motion data.
+
+\subsection{Results \& Discussion}
+
+\subsubsection{Conditions}
+For these tests, the device(s) were first placed less than 1 metre away from the router which was connected to the host via an ethernet connection. From the test, we extracted 248 triggers form a total duration of approximately 8 minutes and 15 seconds. We then repeated the tests with the device(s) placed 5 metres away from the router.
+
+\subsubsection{Single Device}
+
+2.1 Data Analysis
+For the duration of the test, we accumulate the latencies for every trigger and calculate a minimum, maximum and mean average latency. The results are given in Table 1. The results span between 6 to 11 milliseconds. When we repeat the test at greater distance, we see a greater range of values and a higher average, as shown in Table 2 and Figure 3. Over the duration of the acquisitions, we could not observe any increasing/decreasing trend in the results.
+
+% Table 1
+
+% Figure 3
+
+\subsubsection{Multiple Devices}
+
+% \paragraph{Configuration}
+For the following, we report our results when using 4 devices simultaneously. To test multiple devices, we pair each R-IoT to the same router and separate the incoming data according to the ID number of the device. All devices are sending data to the same port number. Other conditions are kept the same as the previous test.
+
+\paragraph{Data Analysis}
+
+\subparagraph{Absolute Latency}
+The minimum, maximum and mean latencies for the individual devices are shown in Table 3. We can see the maximum and mean latency has increased in all instances when more devices are added to the network. The results are fairly consistent between each device aside from number 2, which doesn’t reach as high of a maximum. From all 992 triggers, the latency durations ranged from 6.55 to 17.31 milliseconds, and the mean average was calculated as 10.03 milliseconds. In Figure 4 and Figure 5, we show these plotted as a histogram. When we repeat the test at 5 metres, we calculate a small increase in the average latency and a higher maximum amongst all the devices.
+
+% Table 3
+
+% Figure 4
+
+% Table 4
+
+% Figure 5 Histogram of absolute latencies (5 metres)
+
+\subparagraph{Relative Latency}
+
+As well as the response time between each individual device and the host computer, we are also interested in the difference in latency of the received message between all the devices in the network. This is important to enable data synchronisation between sources. For each trigger, we calculate the difference between the first and the last response out of the 4 devices. From our first acquisition, the mean average latency difference was calculated as 3.22 milliseconds with a maximum 8.96. The data is plotted as a histogram to assess the likelihood of these latency differences occurring. When we increase the distance, we find the maximum relative latency goes up to 20.148 milliseconds, and we calculate an increased average of 5.925 milliseconds.
+
+% Figure 6
+
+% Figure 7
+
+\subsection{Discussion}
+
+\subsection{Limitations}
+There are a couple of factors regarding wireless configuration that are worth noting. First is that all the devices were all sending to the same port number (8888). We did this for convenience and ease of programming. However, separating ports for each device may have an effect of performance [3]. Secondly, we set a WPA-2 password on the network which uses more bandwidth. Another factor that is briefly addressed in the document is the added latency between the host computer and the Teensy 3.2, connected by USB. As the communication was dependent on single byte messages, we assume that this is relatively insignificant to the final results\footnote{Serial Latency: Teensy vs. Arduino: \url{http://neophob.com/2011/04/serial-latency-teensy-vs-arduino/}}.
+
+\subsection{Latency Assessment}
+
+From the results, we conclude the following factors to have an impact on the latency between the R-IoT and the host computer. Having more devices in the network will increase the average latency and maximum latency. Additionally, increasing the distance between the R-IoT(s) and the Wi-Fi router will also increase the average latency. When we tested four devices at 5 metres, we observed a few instances of the latency being much higher than the average, compared to when we tested at a short distance. We also found that the distance would affect the difference in latency between devices, which would have an impact on data synchronization.
