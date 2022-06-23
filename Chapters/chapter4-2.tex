@@ -47,7 +47,11 @@ The stimulus signal is originally triggered from the host computer, which sends 
     \label{fig:latency_fig1}
 \end{figure}
 
+<<<<<<< HEAD
 A timestamp is logged at t\textsubscript{0}, the moment the trigger message is sent from the host computer. Another is logged at t\textsubscript{1}, when the change is received in the incoming OSC message. From here, we define the latency as t\textsubscript{1} – t\textsubscript{0} for each instance of a trigger message. This approach is partially inspired by the closed-loop latency tests performed by Sebastian Madgwick for the x-OSC device \cite{Madgwick}, where a square wave is fed into the analog input of the device and outputted into a frequency counter to measure latency. We acknowledge that this method is not as accurate due to the small latency that occurs between the host computer and the Teensy, which is covered in section [section]. However, we consider this a low-cost solution that can be more easily replicated for the user’s specific conditions and environment.
+=======
+A timestamp is logged at t0, the moment the trigger message is sent from the host computer. Another is logged at t1, when the change is received in the incoming OSC message. From here, we define the latency as t1 – t0 for each instance of a trigger message. This approach is partially inspired by the closed-loop latency tests performed by Sebastian Madgwick for the x-OSC device \cite{Madgwick}, where a square wave is fed into the analog input of the device and outputted into a frequency counter to measure latency. We acknowledge that this method is not as accurate due to the small latency that occurs between the host computer and the Teensy, which is covered in section [section]. However, we consider this a low-cost solution that can be more easily replicated for the user’s specific conditions and environment.
+>>>>>>> e3b2f4aeba513253fe5b9f622b70b522d5d65272
 
 % \subsubsubsection{Multiple Device Setup}
 \paragraph{Multiple Device Setup}
