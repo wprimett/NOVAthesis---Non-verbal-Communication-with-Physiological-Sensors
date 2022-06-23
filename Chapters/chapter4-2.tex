@@ -17,8 +17,7 @@ We found a slight increase in latency when using more devices on one network and
 
 \subsubsection{Device Overview}
 
-The BITalino R-IoT module is the 7th generation of IRCAM's wireless sensor digitizing unit, an essential tool linking motion sensing, gestural recognition and Live Performance Arts. Since 2001, IRCAM aimed to provide a low latency, high data-rate & resolution and stage compatible devices, capable of streaming gestural information to the computer from multiple performers.
-The BITalino R-IoT embeds a 9-axis digital IMU sensor (LSM9DS1) [1] featuring a 3-axis accelerometer, a 3- axis gyroscope and a 3-axis magnetometer, allowing for instance the onboard computation of the absolute orientation of the module in space. The sensor is attached to the SPI port to sample the 16-bit motion data at high speed. In addition to this, there are two 12-bit ADC inputs, compatible with the BITalino sensor modules. To ease the reading of this documentation, we will refer from now to the BITalino R-IoT as R-IoT. More information about the device can be found in the official documentation1.
+The BITalino R-IoT module is the 7th generation of IRCAM's wireless sensor digitizing unit \cite{R-IoT}, an essential tool linking motion sensing, gestural recognition and Live Performance Arts. Since 2001, IRCAM aimed to provide a low latency, high data-rate & resolution and stage compatible devices, capable of streaming gestural information to the computer from multiple performers.  The BITalino R-IoT embeds a 9-axis digital IMU sensor (LSM9DS1) featuring a 3-axis accelerometer, a 3-axis gyroscope and a 3-axis magnetometer, allowing for instance the onboard computation of the absolute orientation of the module in space \cite{Matzka}. The sensor is attached to the SPI port to sample the 16-bit motion data at high speed. In addition to this, there are two 12-bit ADC inputs, compatible with the BITalino sensor modules. In this section, we will refer from now to the BITalino R-IoT as R-IoT. More information about the device can be found in the official documentation1.
 
 \subsubsection{Wireless Communication Methods}
 Out of the box, the R-IoT is programmed to transmit data over Open Sound Control . This is a communication protocol for communication among computers, sound synthesizers, and other multimedia devices that is optimized for modern networking technology (OSC)\footnote{For further information please visit \url{http://opensoundcontrol.org/}.}. The main features include the following:
@@ -34,24 +33,32 @@ With the default configuration, each device will send an array of 21 float value
 
 \subsection{Experimental Protocol}
 
-% \subsection{Experiment Objectives}
+\subsection{Objective \& Methods}
 In our tests, we calculate the time taken for the host computer to receive a response to a stimulus which changes in the analog input on the R-IoT device. The stimulus signal is distributed to multiple devices which are included in the network to see the effect this has on latency. The test is run for a duration of several minutes to assess how the latency deviates over time.
 
-\subsubsection{Method}
-
 \subsubsubsection{Reference Signal and Timestamps}
-The stimulus is originally triggered from the host computer, which sends single byte messages to a teensy 3.2 board\footnote{Teensy 3.2: \url{https://www.pjrc.com/store/teensy32.html}} via USB serial. Upon receiving a message from the host computer, the teensy board will output either 3.3 or 0 volts that is put through a voltage divider before reaching the analog input of the R-IoT device. The R-IoT then sends OSC packets (containing the analog input value) back to the host computer via a TP- Link MR3020 Wi-Fi router. The stimulus signal is set to switch every second, resulting in an oscillation of 0.5 Hz.
+The stimulus signal is originally triggered from the host computer, which sends single byte messages to a teensy 3.2 board\footnote{Teensy 3.2: \url{https://www.pjrc.com/store/teensy32.html}} via USB serial. Upon receiving a message from the host computer, the teensy board will output either 3.3 or 0 volts that is put through a voltage divider before reaching the analog input of the R-IoT device. The R-IoT then sends OSC packets (containing the analog input value) back to the host computer via a TP-Link MR3020 Wi-Fi router. The stimulus is set to switch every second, resulting in an oscillation of 0.5 Hz (Figure \ref{fig:latency_fig1}).
 
 % Figure 1
+\begin{figure}[ht]
+  \centering
+    \includegraphics[width=\textwidth]{Chapters/Figures/technical/Latency/figure1.png}
+    \caption{Experimental Architecture for Latency Tests}
+    \label{fig:latency_fig1}
+\end{figure}
 
-A timestamp is logged at t0, the moment the trigger message is sent from the host computer. Another is logged at t1, when the change is received in the incoming OSC message. From here, we define the latency as t1 – t0 for each instance of a trigger message.
-This approach is partially inspired by the closed-loop latency tests performed by Sebastian Madgwick for the x-OSC device [2], where a square wave is fed into the analog input of the device and outputted into a frequency counter to measure latency. We acknowledge that this method is not as accurate due to the small latency that occurs between the host computer and the Teensy, which is covered in section [section]. However, we consider this a low-cost solution that can be more easily replicated for the user’s specific conditions and environment.
+A timestamp is logged at t\textsubscript{0}, the moment the trigger message is sent from the host computer. Another is logged at t\textsubscript{1}, when the change is received in the incoming OSC message. From here, we define the latency as t\textsubscript{1} – t\textsubscript{0} for each instance of a trigger message. This approach is partially inspired by the closed-loop latency tests performed by Sebastian Madgwick for the x-OSC device \cite{Madgwick}, where a square wave is fed into the analog input of the device and outputted into a frequency counter to measure latency. We acknowledge that this method is not as accurate due to the small latency that occurs between the host computer and the Teensy, which is covered in section [section]. However, we consider this a low-cost solution that can be more easily replicated for the user’s specific conditions and environment.
 
 % \subsubsubsection{Multiple Device Setup}
 \paragraph{Multiple Device Setup}
-To test multiple devices simultaneously, we feed to the same reference signal from the Teensy to many R- IoTs. The devices are configured to stream data through the same Wi-Fi router, where the data is addressed by the ID number of each device.
+To test multiple devices simultaneously, we feed to the same reference signal from the Teensy to many R-IoTs, shown in Figure \ref{fig:latency_fig2} The devices are configured to stream data through the same Wi-Fi router, where the data is addressed by the ID number of each device.
 
-Figure 2 Feeding Reference Signal to Multiple R-IoTs
+\begin{figure}[ht]
+  \centering
+    \includegraphics[width=\textwidth]{Chapters/Figures/technical/Latency/figure2.png}
+    \caption{Feeding Reference Signal to Multiple R-IoTs}
+    \label{fig:latency_fig2}
+\end{figure}
 
 \paragraph{Device Firmware}
 Each device is flashed with the default firmware, which implements algorithms to compute the absolute orientation of the device from the raw IMU data, proving quaternions and Euler angles every time a data packet is transmitted. For this reason, our tests can be considered to account for the latency that occurs when retrieving motion data.
@@ -63,12 +70,18 @@ For these tests, the device(s) were first placed less than 1 metre away from the
 
 \subsubsection{Single Device}
 
-2.1 Data Analysis
-For the duration of the test, we accumulate the latencies for every trigger and calculate a minimum, maximum and mean average latency. The results are given in Table 1. The results span between 6 to 11 milliseconds. When we repeat the test at greater distance, we see a greater range of values and a higher average, as shown in Table 2 and Figure 3. Over the duration of the acquisitions, we could not observe any increasing/decreasing trend in the results.
+\paragraph{Data Analysis}
+For the duration of the test, we accumulate the latencies for every trigger and calculate a minimum, maximum and mean average latency. The results are given in Table 1 \ref{}. The results span between 6 to 11 milliseconds. When we repeat the test at greater distance, we see a greater range of values and a higher average, as shown in Table \ref{} and Figure \ref{fig:latency_fig3}. Over the duration of the acquisitions, we could not observe any increasing/decreasing trend in the results.
 
 % Table 1
 
 % Figure 3
+\begin{figure}[ht]
+  \centering
+    \includegraphics[width=\textwidth]{Chapters/Figures/technical/Latency/figure3.png}
+    \caption{Histogram of latency values (5 metres)}
+    \label{fig:latency_fig3}
+\end{figure}
 
 \subsubsection{Multiple Devices}
 
@@ -78,28 +91,52 @@ For the following, we report our results when using 4 devices simultaneously. To
 \paragraph{Data Analysis}
 
 \subparagraph{Absolute Latency}
-The minimum, maximum and mean latencies for the individual devices are shown in Table 3. We can see the maximum and mean latency has increased in all instances when more devices are added to the network. The results are fairly consistent between each device aside from number 2, which doesn’t reach as high of a maximum. From all 992 triggers, the latency durations ranged from 6.55 to 17.31 milliseconds, and the mean average was calculated as 10.03 milliseconds. In Figure 4 and Figure 5, we show these plotted as a histogram. When we repeat the test at 5 metres, we calculate a small increase in the average latency and a higher maximum amongst all the devices.
+The minimum, maximum and mean latency measures for the individual devices are shown in Table 3. We can see the maximum and mean latency has increased in all instances when more devices are added to the network. The results are fairly consistent between each device aside from number 2, which doesn’t reach as high of a maximum. From all 992 triggers, the latency durations ranged from 6.55 to 17.31 milliseconds, and the mean average was calculated as 10.03 milliseconds. In Figure \ref{fig:latency_fig4} and Figure \ref{fig:latency_fig5}, we show these plotted as a histogram. When we repeat the test at 5 metres, we calculate a small increase in the average latency and a higher maximum amongst all the devices.
 
 % Table 3
 
 % Figure 4
+\begin{figure}[ht]
+  \centering
+    \includegraphics[width=\textwidth]{Chapters/Figures/technical/Latency/figure4.png}
+    \caption{Histogram of absolute latencies (1 metre)}
+    \label{fig:latency_fig4}
+\end{figure}
 
 % Table 4
 
 % Figure 5 Histogram of absolute latencies (5 metres)
+\begin{figure}[ht]
+  \centering
+    \includegraphics[width=\textwidth]{Chapters/Figures/technical/Latency/figure5.png}
+    \caption{Histogram of absolute latencies (5 metres)}
+    \label{fig:latency_fig5}
+\end{figure}
 
 \subparagraph{Relative Latency}
 
-As well as the response time between each individual device and the host computer, we are also interested in the difference in latency of the received message between all the devices in the network. This is important to enable data synchronisation between sources. For each trigger, we calculate the difference between the first and the last response out of the 4 devices. From our first acquisition, the mean average latency difference was calculated as 3.22 milliseconds with a maximum 8.96. The data is plotted as a histogram to assess the likelihood of these latency differences occurring. When we increase the distance, we find the maximum relative latency goes up to 20.148 milliseconds, and we calculate an increased average of 5.925 milliseconds.
+As well as the response time between each individual device and the host computer, we are also interested in the difference in latency of the received message between all the devices in the network. This is important to enable data synchronisation between sources. For each trigger, we calculate the difference between the first and the last response out of the 4 devices. From our first acquisition, the mean average latency difference was calculated as 3.22 milliseconds with a maximum 8.96. In Figure \ref{fig:latency_fig6} and \ref{fig:latency_fig7} The data is plotted as a histogram to assess the likelihood of these latency differences occurring. When we increase the distance, we find the maximum relative latenscy goes up to 20.148 milliseconds, and we calculate an increased average of 5.925 milliseconds.
 
 % Figure 6
+\begin{figure}[ht]
+  \centering
+    \includegraphics[width=\textwidth]{Chapters/Figures/technical/Latency/figure6.png}
+    \caption{Histogram of latency differences (1 metre)}
+    \label{fig:latency_fig6}
+\end{figure}
 
 % Figure 7
+\begin{figure}[ht]
+  \centering
+    \includegraphics[width=\textwidth]{Chapters/Figures/technical/Latency/figure7.png}
+    \caption{Histogram of latency differences (5 metres)}
+    \label{fig:latency_fig7}
+\end{figure}
 
 \subsection{Discussion}
 
 \subsection{Limitations}
-There are a couple of factors regarding wireless configuration that are worth noting. First is that all the devices were all sending to the same port number (8888). We did this for convenience and ease of programming. However, separating ports for each device may have an effect of performance [3]. Secondly, we set a WPA-2 password on the network which uses more bandwidth. Another factor that is briefly addressed in the document is the added latency between the host computer and the Teensy 3.2, connected by USB. As the communication was dependent on single byte messages, we assume that this is relatively insignificant to the final results\footnote{Serial Latency: Teensy vs. Arduino: \url{http://neophob.com/2011/04/serial-latency-teensy-vs-arduino/}}.
+There are a couple of factors regarding wireless configuration that are worth noting. First is that all the devices were all sending to the same port number (8888). We did this for convenience and ease of programming. However, we acknowledge that separating ports for each device may have an effect of performance, as advised in the official documentation \cite{BITalino R-IoT User Manual}. Secondly, we set a WPA-2 password on the network which uses more bandwidth. Another factor that is briefly addressed in the document is the added latency between the host computer and the Teensy 3.2, connected by USB. As the communication was dependent on single byte messages, we assume that this is relatively insignificant to the final results\footnote{Serial Latency: Teensy vs. Arduino: \url{http://neophob.com/2011/04/serial-latency-teensy-vs-arduino/}}.
 
 \subsection{Latency Assessment}
 
