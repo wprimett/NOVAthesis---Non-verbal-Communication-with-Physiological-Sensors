@@ -63,9 +63,10 @@ The same distinction between representational and interactional can be made for 
 We aim to apply user-centered, interactive machine learning to body maps, which accepts users are the domain experts in their own bodies. They can create a particular language of interaction, adapting a given model, providing training data themselves. In soma design theory, first-person interpretation of bodily data is crucial here. Rather than relying on a population of users and attempting at classifying user data into fixed categories (a representational system), the goal is to design a system that is intended for iterative interactions that end up in the users gaining knowledge about themselves.
 
 \subsubsection{Image Generation with Convolutional Autoencoders}
+
 Convolutional Autoencoders (CAEs) have been used to reduce the dimensionality of images, such as those in the MNIST dataset \cite{wang_auto-encoder_2016}. Between the decoder and encoder functions of the trained machine learning model is the bottleneck layer, composed of compressed representations of the input data \cite{zhang_better_nodate}. In the case that the model has been trained on a corpus of images, we are able to reconstruct the visual data from the compressed vector. From this stage, we are also able to use vector arithmetic to generate new variations of the images that are not contained in the original dataset. 
 
-Given the bottlneck layer requires lower dimentionality data to generate a full scale output, it's more feasible to construct interactive mappings with low dimensional inputs. In our system, we interface physiological sensor data with a Convolutional Autoencoder for image generation.
+Given the bottlneck layer requires lower dimentionality data to generate a full scale output, it's more feasible to construct interactive mappings with low dimensional inputs. In our system, we interface physiological sensor data with a Convolutional Autoencoder (CAE) for image generation.
 
 \subsection{Technical Composition}
 
@@ -75,25 +76,68 @@ The aim of the system is to continuously generate bodily map images that corresp
 
 The system utilises two machine learning models across two processes. The training process takes data from a corpus of images and sensor values as input for each model respectively. The learnt model enables continuous mappings to be generated based on these inputs. The interaction process relies on the previously trained models and takes IMU data in real-time to generate reconstructed images. Our workflow is illustrated in Figure \ref{fig:system_overview}.
 
-\subsubsection{}
-
 \subsection{Overview of Hardware and Software}
-We are placing five BITalino R-IoT devices\footnote{BITalino R-IoT: \url{https://bitalino.com/en/r-iot-kit}} on the body of the user, each device includes an Inertial Measurement Unit (IMU) to measure the relative orientation of the user’s limbs. We chose to place sensors in the following areas to represent the postural features of the user: {upper left and right arm, abdomen, and the up left and right knee}. While we acknowledge that this configuration provides less data per frame than a Microsoft Kinect (or motion capture system), we proposed this solution as a low-dimensional estimator of posture sufficient to differentiate and interpolate between a small set of postures. 
 
-\begin{figure}[ht]
-    \centering
-    % \includegraphics[width=\columnwidth]{img/image-placeholder-350x350.png}
-    \caption{IMU Sensor Placement}
-    \label{fig:placement}
-\end{figure} 
+We are placing five BITalino R-IoT devices\footnote{BITalino R-IoT: \url{https://bitalino.com/en/r-iot-kit}} on the body of the user, each device includes an Inertial Measurement Unit (IMU) to measure the relative orientation of the user’s limbs. We chose to place sensors in the following areas to represent the postural features of the user: upper left and right arm, abdomen, and the up left and right knee. We proposed this solution as a low-dimensional estimator of posture sufficient to differentiate and interpolate between a small set of postures. 
 
-These absolute orientation of the sensors are computed within the firmware of the sensor module using the formulas provided in the BITalino R-IoT firmware\footnote{BITalino R-IoT firmware: \url{https://github.com/BITalinoWorld/firmware-bitalino-riot}}. The firmware implements Sebastian Madwick’s algorithm for orientation filtering \cite{madgwick_ecient_nodate}. These features are described further in section \ref{sensor_input} 
+% \begin{figure}[ht]
+%     \centering
+%     % \includegraphics[width=\columnwidth]{img/image-placeholder-350x350.png}
+%     \caption{IMU Sensor Placement}
+%     \label{fig:placement}
+% \end{figure} 
+
+The absolute orientation of the sensors are computed within the firmware of the sensor module using the formulas provided in the BITalino R-IoT firmware\footnote{BITalino R-IoT firmware: \url{https://github.com/BITalinoWorld/firmware-bitalino-riot}}. The firmware implements Sebastian Madwick’s algorithm for orientation filtering \cite{madgwick_ecient_nodate}. 
+% These features are described further in section \ref{sensor_input} 
 
 The first model, which is trained in the image corpus is programmed using the TensorFlow library \cite{abadi_tensorflow_2016} in Python and the second model, responsible for processing sensor data is implemented in an OpenFrameworks\footnote{openFramworks: \url{https://openframeworks.cc/}.} application using the RapidLib C++ library\footnote{ofxRapidLib: \url{https://github.com/mzed/ofxRapidLib/}} for interactive machine learning.
 
-\subsection{Discussion}
+\subsubsection{Latent Space Conditioning}
 
-% \subsubsection{}
+\subsection{Training Process} \label{training_process}
+
+Using the first model, we train a Convolutional Autoencoder (CAE) to interpret the visual features of the image dataset. The model used in our system encodes each image into 32 float vector representations. These vectors are then used as labels when training the regression model. This second model then takes the static postures recorded with IMU  data as an input and produces vector mappings according to the labels (see Figure \ref{fig:training_fig}). The two models are described in further detail in the respective subsections below.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{Chapters/Figures/modi_dis/training_process.png}
+    \caption{Training process for the Regression and Autoencoder model}
+    \label{fig:training_fig}
+\end{figure} 
+
+\subsection{Convolutional Autoencoder Model}
+
+The Convolutional Autoencoder (CAE) is an unsupervised machine learning model, where by the training data is not labelled, independent from any categorical descriptor. The trainingg process initialises with an encoder function that compresses the images into vector representations of 32 floats, corresponding to their relative position in the latent dimension. This compressed representation of the image is assigned according to the visual features interpreted by the model, commonly referred to as latent space. As a result, drawings that are more visually related can be described as closer together, where as dissimilar inputs are located further apart in the latent space. 
+
+% \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.5\columnwidth]{img/image1.png}
+%     % \caption{Training process for the Regression and Autoencoder model}
+%     \label{fig:diagram1}
+% \end{figure} 
+
+\[ f:i_n\xrightarrow{}v^n = \{V_0, V_1,... ,V_{32}\} \] 
+
+We can state this formula where \textit{i} is the complete 256 x 512 pixel representation of a given image with ID of \textit{n} and \textit{v} is the latent vector (32 float values) produced by the autoencoder.
+
+The decoder function takes the latent vector as an input and reconstructs a new image, incorporating visual features from the training dataset. The decoder can produce the close-to-identical image to that of the original dataset, by feeding the same vector calculated by the encoder. In addition to this, we can also generate continuous interpolations between the drawings when applying vector arithmetic, resulting in a new image that the model has not been explicitly trained with. To evaluate the capabilities of our model, we will apply similarity measurements comparing the reconstructed output to the training data (described in further in section \ref{data_analysis}).
+
+\subsection{Supervised Regression Model and Sensor Input}\label{sensor_input}
+
+We are using {5} Inertial Measurement Units (IMUs) to measure the relative orientation of the user’s limbs. We chose to place sensors in the following areas to represent the postural features of the user: {upper left and right arm, abdomen, and the up left and right knee}. From each IMU, we calculate 4 Quaternion angles to depict the  absolute orientation in 3-dimensional space. Our main motivation for using Quaternions is that the output operate on sine and cosine functions, meaning the values do not skip from minimum to maximum (or visa versa) when reaching the angular thresholds, making this encoding suitable for interpolating between gestures. 
+% From here, the values are transmitted to the host computer wirelessly using the Open Sound Control (OSC) protocol at a constant 100ms interval.
+
+For every generated image that we want to associate with a particular posture, we store the associated latent vector, used as a continuous numerical label when training the model. For each label, we record 5 seconds of the posture being executed, resulting in approximately 50 examples of each pose. In our experiment, each user will train 4 gestures with a latent vector. When the model is trained, the model will reproduce the latent vector as labelled when a pose is repeated, or if a new posture is provided, the regression function will interpolate between the 4 vectors accordingly to generate a new visual output.
+
+\subsection{Interaction Process}
+
+The interaction loop is completed when we feed the output of the regression model directly to the bottleneck layer of the CAE. Where \textit{p} is the posture represented by orientational values from the sensors and \textit{v} is the latent vector representation of a particular image \textit{i} from the training dataset, we can bridge data from the two models with the following formula 
+
+\[ f:p_n\xrightarrow{}v^n \xrightarrow{}i_n \] 
+
+\subsection{User Feedback \& Discussion}
+
+For our initial evaluation, we will give attention to the remarks provided as part of the user-centred design workshops that proceeded the case study presented in the following Section \ref{case_studies:modi_dis}. To maintain a relevant discussion for this segment, we pick out only the specific points directed towards the Latent Steps system.
 
 \subsubsection{Embracing Data Collection as Aesthetic Experience}
 
@@ -109,7 +153,7 @@ The first model, which is trained in the image corpus is programmed using the Te
 \end{tabular}
 \end{center}
 
-While it was not an intended outcome of the system, the therapeutic quality of the drawing process can surely be acknowledged as complimentary to the holistic user experience. This method of data collection is inherently disruptive,  halting the primary activity, and prompting users to pay attention to the internal bodily experiences occurring in that moment. This exercise aligned with some of the core principles of Feldenkrais and even aspects of traditional forms of art therapy. When applying this data into Latent Steps visualisation system, we demonstrate the case for user empowerment through technical transparency, advocating for human-centred workflows. Participants are exposed to the data collection and training processes as they reenact these steps as a prerequisite before they can interact with the predictive visualisation model.   
+While it was not an intended outcome of the system, the therapeutic quality of the drawing process can surely be acknowledged as complimentary to the holistic user experience. This method of data collection is inherently disruptive, halting the primary activity, and prompting users to pay attention to the internal bodily experiences occurring in that moment. This exercise aligned with some of the core principles of Feldenkrais and even aspects of traditional forms of art therapy. When applying this data into Latent Steps visualisation system, we demonstrate the case for user empowerment through technical transparency, advocating for human-centred workflows. Participants are exposed to the data collection and training processes as they reenact these steps as a prerequisite before they can interact with the predictive visualisation model.   
 
 \subsection{Working with Internal Physiological Signals}
 
