@@ -24,7 +24,7 @@ Deep Pressure Therapy relies on exerting \textit{firm touch} to help individuals
 \end{tabular}
 \end{center}
 
-\section{Introduction}
+\subsection{Introduction}
 
 This study follows our explorations towards biofeedback systems for breathing and shape changing actuation that was initiated in the preliminary actions (Section x.x) in addition to the work contained in the publications efforts that proceeded \cite{sanches_ambiguity_2019, alfaras_biodata_2020}. These modalities have been given attention by interaction design researchers, showcasing examples of breathing feedback as visual or aural representation, with other cases using haptic feedback with various tangible media, such as shape-changing materials \cite{prpa_inhaling_2020, miri_piv_2020}. We also note the technical progressions towards new shape-changing materials that have complimented this research \cite{coelho_shape-changing_2011}, however, there still remains a call for understanding their aesthetic potential of these systems from the perspective of the user \cite{rasmussen_shape-changing_2012,alexander_grand_2018}. 
 
@@ -38,22 +38,21 @@ Through a process of material experimentation, we uncover potential for a number
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Background}
+\subsection{Background}
 
-\subsection{Breathing Awareness}
+\subsubsection{Breathing Awareness}
 
 A growing body of research in HCI focuses on designing interactive systems to extend breathing awareness. Prpa and colleagues \cite{prpa_inhaling_2020} provide an overview of the underlying theoretical frameworks and design strategies used in breathing-based interactions. While some aim to trigger physiological responses related to alleviating stress and anxiety by slowing the breathing rate \cite{van_rooij_deep_2016, bumatay_investigating_2017, parnandi_chill-out_2014}, others utilise breathing patterns to promote mindfulness \cite{pisa_towards_2017, shamekhi_breathe_2018} or to support communication between people through synchronization of breathing \cite{desnoyers-stewart_jel_2019,kim_breathingframe_2015}. The somaesthetic design approach \cite{hook_designing_2018}, which informed our work, utilises breathing as gentle guidance to develop sustained attention towards bodily sensations and learn to appreciate all the nuances of the felt experience of breathing \cite{prpa_attending_2018, stahl_soma_2016}. By cultivating bodily and breathing awareness, users can come to better understand the connections between their physical and emotional experiences, thereby finding novel paths to regulate emotion and develop a higher sense of trust of their own body \cite{bornemann_differential_2015}.
 
 Many of these systems capture breathing data and translate it into sensory stimuli to externalise breathing, making it visually or tangibly accessible to users, creating immersive virtual and physical environments for engaging with breathing practices from mindfulness, yoga, Feldenkrais \cite{moran_exopranayama_2016, patibanda_life_2017, vidyarthi_sonic_2012, stahl_soma_2016, shamekhi_breathe_2018} and other body practices. While most interactions address auditory or visual modalities, there have been a few tangible designs which mirror or guide users' breathing processes, such as fidget spinners with added visual feedback \cite{liang_biofidget_2018}, shape-changing airbags \cite{yu_breathe_2015} or stuffed animals \cite{aslan_hold_2016}. Other haptic systems mainly use vibration feedback \cite{dijk_breathe_2011,bumatay_investigating_2017, miri_piv_2020}, while other forms of immediate haptic feedback on the torso have so far rarely been explored with the exception of a recent study by Foo et al. \cite{foo_soft_2020}. They noted that rhythmic pulsing compression applied on the torso showed potential to improve focused attention on breathing and adopt a slow breathing rhythm, making it an interesting option for further exploration.
 
-\subsection{Shape-Changing Interfaces}
+\subsubsection{Shape-Changing Interfaces}
 
 Shape changing interfaces constitute a novel interaction form as they enable interactive changes of the shape or texture of a material \cite{alexander_grand_2018}. The increasing maturity of these shape-changing materials and tangible technologies has led to increased attention in the HCI and interaction design field. Recently, we have seen several attempts to clarify what this design space offers when building applications. For instance, Coelho and Zigelbaum \cite{coelho_shape-changing_2011} try to characterise technological properties of shape-changing materials, while Rasmussen and colleagues \cite{rasmussen_shape-changing_2012} identified eight different types of shape changes of relevance to different functional and hedonic design purposes. Others present particular design exemplars, including mobile devices \cite{hemmert_shape-changing_2010, dimitriadis_evaluating_2014, gomes_morephone_2013}, interactive tabletops \cite{follmer_inform_2013, taher_exploring_2015}, furniture \cite{gronvall_causing_2014}, toys \cite{katsumoto_ninja_2013}, and interactive architecture \cite{oosterhuis_interactions_2008}. A few shape-changing design exemplars have addressed breathing, such as a stuffed animal breathing in synchrony with its user \cite{aslan_hold_2016}, a photo frame  reflecting a partner's breathing \cite{kim_breathingframe_2015}, or morphing physical environments for engaging with one's own breathing \cite{sjoman_breathing_2018, schnadelbach_exobuilding:_2012}. These systems mainly emphasise the visual aspect of shape-changing interaction \cite{kim_breathingframe_2015, sjoman_breathing_2018, schnadelbach_exobuilding_2012, moran_exopranayama_2016}, and only in a few cases are they used to produce tactile feedback \cite{yu_breathe_2015} or engaging with users' movements \cite{tomimatsu_breathing_2016}.
 
 In comparison to the technical development, the aesthetic user experience of interacting with shape-changing materials as well as their affordances have not received as much attention \cite{rasmussen_shape-changing_2012, alexander_grand_2018}. Rasmussen and colleagues \cite{rasmussen_shape-changing_2012} devised two types of expressive parameters to characterise how movements of shape-changing interfaces are perceived by users. These include adjectives like smooth or angry as well as associations, such as a phone expressing sadness through a human-like sobbing pose. Due to their dynamic characteristics, users and designers often use metaphors to describe shape-changing behaviours, associating them with certain personality traits, animals or ascribing them other life-like qualities \cite{rasmussen_sketching_2016, kwak_design_2014}.
 
-
-\subsection{Deep Touch Pressure}
+\subsubsection{Deep Touch Pressure}
 
 Deep touch pressure (DTP) is a method used in sensory integration therapy, aimed at treating sensory processing difficulties related to, amongst others, anxiety disorders, in particular anxiety experienced by those on the autism spectrum. \cite{hsin-yung_chen_physiological_2013, grandin_calming_1992, krauss_effects_1987}. The therapy involves using tools such as weighted garments and blankets to provide a comforting pressure sensation. Its calming effect can be attributed to increased activity of the parasympathetic nervous system, which plays a significant role in anxiety management \cite{hsin-yung_chen_physiological_2013}. In therapy practice, DTP has been applied to increase the ability to focus \cite{fertel-daly_effects_2001}, reduce disruptive behaviour \cite{quigley_effects_2011} and reduce anxiety symptoms \cite{grandin_calming_1992} in patients with bipolar disorder, developmental disorders and those on the autism spectrum. In HCI, different types of compression garments have been developed to provide DTP. Vaucelle et al. \cite{vaucelle_design_2009} designed a pressure vest containing pneumatic chambers. A more elaborate project is the Force Jacket \cite{delazio_force_2018}, an upper body garment that uses pneumatically-actuated airbags to create sensations of directly applied force and high frequency vibrations. Such vests are the most common form of designs for deep touch pressure and make up the majority of commercially available DTP products, such as the Tjacket \cite{ltd_tjacket_2020} or the Squease vest \cite{ltd_squease_2014}. Both are inflated using external pumps. Such vests have also been used to simulate hugs in long-distance interactions between parents and children \cite{teh_huggy_2009}. 
 
@@ -64,7 +63,7 @@ Deep touch pressure (DTP) is a method used in sensory integration therapy, aimed
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% DESIGN PROCESS 
-\section{Design Process}
+\subsection{Design Process}
 
 % \begin{table*}
 % \caption{Researchers' demographics (as of January 2021)}
@@ -88,7 +87,7 @@ The process was initiated by the author Annkatrin via initial exploration of the
 
 The results discussed in this study are primarily based on the series of soma design workshops performed by the authors of the corresponding publication, Annkatrin, William and Miquel, as well as the further investigation of specific breathing techniques done by Annkatrin afterwards. This was also complimented with additional insights from the design work done by Pavel and Kia. 
 
-\subsection{Soma Design Sessions}
+\subsubsection{Soma Design Sessions}
 \label{sec:soma_workshops}
 
 Over the course of four weeks, Annkatrin, William and Miquel performed a series of four collaborative soma design workshops exploring breathing-based interactions with shape-changing pressure feedback. The three authors are actively engaged in the field of embodied interaction with biofeedback systems, carrying modest experience with bodily practices such as yoga and Feldenkrais through regular practice both in and out of the lab. An additional participant, a graduate student from a product design background who is not among the authors of this paper, joined in the third session. 
@@ -169,7 +168,7 @@ The exploration was documented in the form of an online diary as an intermediate
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% EXPERIENTIAL AESTHETIC QUALITIES 
 
-\section{Experiential Aesthetic Qualities}
+\subsection{Experiential Aesthetic Qualities}
 \label{sec:aesthetic_qualities}
 
 In the following, we present the four experiential aesthetic qualities that grew out of our design explorations. Such qualities bring out the aesthetic potential of interactions and how they are experienced in use \cite{lowgren_toward_2009}, serving as an abstraction tool to articulate the insights which emerged over a series of explorations \cite{stahl_evocative_2014}.
@@ -177,12 +176,12 @@ In the following, we present the four experiential aesthetic qualities that grew
 Each quality is introduced with a body of examples that highlight how the quality manifested in different first-person interactions. In reflection of these accounts and the data collected in the design explorations, we then outline the aesthetic potential of shape-changing deep pressure feedback and the overall influence this had on different breathing techniques. We discuss how pressure-based feedback can be used to cultivate breathing awareness, appreciation, controllability and deconstruction. The different experimental configurations allowed us to document a range of experiences relating to our breathing patterns, some yielding a greater awareness by reinforcing our habitual behaviour, and others disrupting the familiar movements.
 % 
 
-\subsection{Placements on the Torso -- Symmetric versus Asymmetric}
+\subsubsection{Placements on the Torso -- Symmetric versus Asymmetric}
 
 Insights of the importance of symmetrical as well as asymmetrical feedback arose from how the inflatable pads could be moved around to different locations on the torso. This made it possible to put deep pressure on, for example, the back right shoulder at the same time as another inflatable put pressure on the lower left-side of the belly. By symmetrical feedback, we are referring to pressure applied equally on the left and right sides of the torso, i.e. symmetrical on the lateral plane with the same actuation pattern. Asymmetrical feedback refers to one-sided pressure or pressure on both sides of the body, but a) on different body parts or b) with different actuation patterns.
 
 
-\subsubsection{Experiencing symmetric and asymmetric feedback}
+\paragraph{Experiencing symmetric and asymmetric feedback}
 
 The team's explorations naturally began with symmetrical placements, leading to a whole range of interesting experiences. For example, when Annkatrin was experimenting with placing the inflatable pillows symmetrically on both shoulders, as shown in Figure \ref{fig:neck}, position (1), she experienced massage-like qualities or "\textit{someone putting a comforting hand on your shoulder}”. When placing the pads near the lower back or waist area when sitting or lying down, the pressure created a sense of support and stability. This was especially pronounced when placing the pads on either side of the lower back in a lying position, forming "\textit{a small indent in the floor to enclose my body, causing a comfortable and safe feeling}." Annkatrin reported feeling unsteady and in lack of 'support' when the pillows were taken out or deflated, as if she would "\textit{roll to the left or right side at any moment}". The symmetrical placement of the pads under the body was often helping Annkatrin to "\textit{feel more connected to the floor, more grounded in my body and my environment}." Generally, interactions with symmetrical placements and patterns invoked calm and relaxed feelings: "\textit{I was left feeling much more in touch with my body, more calm and centred in myself. I felt loose, relaxed and a bit sleepy, similar to how I feel after a yoga practice or a good workout.}" 
 
@@ -198,7 +197,7 @@ Later, Annkatrin continued to experiment with asymmetric actuation using two pad
     % \Description[Applying symmetric and asymmetric deep pressure to the shoulders, neck and lower back]{Applying symmetric deep pressure to the shoulders, as well as asymmetric deep pressure to the neck and lower back. In the latter case, pressure is applied more strongly to the right side of the body.}
 \end{figure}
 
-\subsubsection{Reflecting on symmetric and asymmetric feedback}
+\paragraph{Reflecting on symmetric and asymmetric feedback}
 
 Symmetry is represented in many different forms in the HCI projects focused on breathing. In  projects with visual feedback, symmetry has been expressed as: visualization of two living lungs \cite{abushakra_augmenting_2014}; symmetrical  geometrical figures \cite{van_rooij_deep_2016, prpa_hacking_2016} or living virtual structures \cite{patibanda_life_2017} located in the centre of the screen or virtual environment; or as abstract symmetrical visualizations taking the whole computer screen \cite{moraveji_breathtray_2012}. One can see symmetry expressed as varying light intensity in the Philips LivingColor pair of lights \cite{dijk_breathe_2011}. In the projects using vibration as output medium, symmetry is found in the relative position of the vibrating artefacts on the body, such as: centre of the belly \cite{bumatay_investigating_2017}; centre of the upper chest \cite{frey_breeze_2018}; or in the blanket that has the same vibro-tactile sensation on both sides of the body \cite{dijk_breathe_2011}. In projects using shape-changing actuation as a medium to display breathing, symmetry is found in: the equable expansion and contraction of a living wall \cite{sjoman_breathing_2018}; in dynamic building structures \cite{moran_exopranayama:_2016, schnadelbach_exobuilding:_2012}, as well as in the whole shape of a particular probe \cite{aslan_hold_2016, kim_breathingframe_2015}; or sometimes experienced by the whole body symmetrically \cite{sun_breath_2017}. 
 
@@ -212,11 +211,11 @@ What then is the aesthetic potential of addressing these asymmetries in design? 
 
 Asymmetry as a quality is widely used in Feldenkrais practice for disrupting the processes of the familiar \cite{worth_symmetry_2015}. In Feldenkrais lessons it is achieved by directing attention to just one side of the body, one lung, particular limb or other body part. This allows us to break the circle of habitual experience and reconstruct them bit by bit, slowly and attentively into something new -- evocative and unusual. 
 
-\subsection{Guiding Different Kinds of Breathing}
+\subsubsection{Guiding Different Kinds of Breathing}
 
 There are many possible breathing patterns promoted by different physical disciplines and body practices. Some are specifically targeted at focusing the mind and increase bodily awareness \cite{kupershmidt_definition_2019, burke_role_2008}. To further explore the different muscles and bone structures involved in breathing, we decided to more deliberately impose deep pressure on different locations of the breathing apparatus in a manner that mirrors and encourages these different breathing patterns.  
 
-\subsubsection{Experiencing breathing in different body parts}
+\paragraph{Experiencing breathing in different body parts}
 Applying deep pressure to different locations on the body not only made it possible to explore symmetric vs asymmetric feedback, but also to feel the breathing in different body parts. The actuation was adapted to the user's breathing by inflating the pillows during inhalation and deflating the pillows during exhalation, including a slight delay as the user’s breathing intervals are computed from sensor data. This interaction is from here on referred to as \textit{following} the user's breathing.
 
 The explorations started with taking conscious breaths through the chest while placing the inflatable pillows on and under different body parts which revealed their potential to physically move the body in certain directions. This led to a range of interesting experiences that were not necessarily related to breathing, such as placing them under the feet to cause a movement which Annkatrin related to "\textit{walking on the spot.}" 
@@ -228,7 +227,7 @@ To investigate these different breathing patterns further, Annkatrin, as well as
 Over time, the exercises created a lasting effect which carried over into Annkatrin's everyday life: "\textit{I could feel the muscles in my torso more distinctively when walking around. I was experiencing my breathing more intensely throughout the day, leading me to take deeper breaths than before and use my stomach and chest more deliberately and distinctly while breathing.}". This suggests that by applying deep pressure on certain body parts, the pads may help improve someone's control of their breathing over time, stimulating engagement with certain muscles to assist different ways of breathing with regular practice. While three-part breathing is just one possible option, a plethora of techniques exist, such as letting the rib cage expand towards the arms, chest, back or shoulders when inhaling. Each of these directions engages different muscles around the rib cage, that, when trained, can open up a rich repertory of breathing techniques. 
 % 
 
-\subsubsection{Reflecting on different kinds of breathing}
+\paragraph{Reflecting on different kinds of breathing}
 
 While many different muscles and bone structures are involved in breathing and enable distinct breathing patterns, breathing-based designs have mainly focused on reducing users' breathing rate \cite{prpa_inhaling_2020}. Whilst some of these studies account for lung capacity (e.g \cite{abushakra_augmenting_2014}), attention towards individual breathing muscles is normally ignored, neglecting the opportunity to practice alternative breathing patterns using these muscles.
 
@@ -247,11 +246,11 @@ There exists a multitude of possibilities when it comes to engaging with breathi
 Thus, our explorations point towards a potential for interactions which incorporate a richer catalogue of breathing methods, creating the need to measure movements on different parts of the body to differentiate between small muscles involved in breathing. But the breathing rhythm does not consist of one-off breaths; instead, it is a pulsating, vibrant flow that engages a variety of muscles and body structures over time. This raises new questions as to how a system can turn a series of breaths into a malleable and adaptive rhythm, allowing the user to engage with their breathing pattern over an extended period of time.
 
 
-\subsection{Synchronous vs Asynchronous Feedback}
+\subsubsection{Synchronous vs Asynchronous Feedback}
 
 By \textit{synchronous} feedback we are referring to deep pressure that follows the user's breathing rhythm. \textit{Asynchronous} feedback, on the other hand, provides a rhythm that is slightly or entirely out of phase with users' breathing, at times even pushing back right when the user inhales and expands their stomach or chest and vice-versa.
 
-\subsubsection{Experiencing synchronous and asynchronous feedback}
+\paragraph{Experiencing synchronous and asynchronous feedback}
 
 At first, the explorations during the design workshops were focused on synchronous feedback, using actuation patterns which imitated the user's own breathing rhythm. These generally felt comfortable and supportive. The deep pressure drew attention to the breathing by making the breathing intervals more tangible and apparent, allowing Annkatrin to "\textit{appreciate my body and its ability to breathe steadily}". The synchronous feedback also created an interesting interplay when sitting on a chair, since leaning back on the pads made the changes in pressure and thus the chest movements more intense, letting the entire body sway back and forth in the breathing rhythm. As the pads were physically pushing the body forwards to support inhalation, Annkatrin reported feeling like "\textit{they were in charge of my breathing and I could let myself surrender my control over my breathing to them}", eliciting a sense of intimacy and safety.
 
@@ -266,7 +265,7 @@ Annkatrin noted that when the pads were contradicting each other or the natural 
 However, when all aspects complemented each other, the asynchronicity of the feedback was able to provoke interesting and unexpected experiences. The pads were generally seen as a "\textit{small extra pair of lungs}", connecting inhalation to inflation and exhalation to deflation. To reverse this more familiar way of breathing, Annkatrin tried placing the pads on the stomach. This forced her to breathe in the opposite way, taking the pressure caused by the inflation as a cue to exhale and letting deflation make room for the stomach and chest to expand during inhalation. While such a breathing pattern accommodated the pressure on the stomach in a way that allowed Annkatrin to take deep breaths, it "\textit{required much more concentration because it was different from every other pattern I had tried so far}". She had to figure out how to adapt to the pressure to be able to accommodate the pads and breathe comfortably, which made the pads seem like they were "\textit{restricting and controlling my breathing}". Thus, the pressure forced Annkatrin to breathe very deliberately and thoughtfully, "\textit{drawing my attention to the mechanics of breathing and re-evaluating the pads’ connection to my breathing}". When used in this way, the asynchronous actuation was able to deconstruct breathing, creating the challenge to become comfortable with being thrown out of rhythm.
 
 
-\subsubsection{Reflecting on synchronous and asynchronous feedback}
+\paragraph{Reflecting on synchronous and asynchronous feedback}
 
 Synchrony is a quality that takes different forms in breathing-based design projects. The most straightforward is a direct mapping of a user's breathing pattern to certain feedback from the system. This is mostly done in phase, mapping expansion to inhalation and contraction to exhalation, with the exception of a photo frame that inflates when a remote person exhales and vice versa \cite{kim_breathingframe_2015}. The inhalation has been mapped to many different output modalities, including the expansion of a visualised geometrical shape \cite{van_rooij_deep_2016, prpa_hacking_2016, wongsuphasawat_you_2012} or pair of lungs \cite{abushakra_augmenting_2014}, tides in a virtual environment \cite{roo_inner_2017}, an increase in light intensity \cite{dijk_breathe_2011, stahl_soma_2016}, as well as the expansion of a physical artefact \cite{aslan_hold_2016, kim_breathingframe_2015, sun_breath_2017, moran_exopranayama:_2016, sjoman_breathing_2018}. Breathing phases can also be tied to the directions of movement of the protagonist in a video game \cite{sonne_chillfish_2016} or of the user in a virtual environment \cite{van_rooij_deep_2016, davies_osmose_1996, prpa_hacking_2016}.
 
@@ -277,11 +276,11 @@ Asynchronous feedback can take form of shaping a soundscape based on different a
 However, the majority of breathing-based systems reported in the literature encourages synchronous breathing patterns, aiming for synchronous feedback in harmony with the user's breathing rhythm. This is not surprising, as similar to symmetry, synchrony is an integral construct in technology, finance, molecular biology, physics, music and psychology which indicates coordination patterns among processes as well as precise coincidence of events in time \cite{ravignani_chorusing_2014}. Rhythm is one of the most important pillars of contemporary music, enabling the singers and musicians to not lose themselves in the music and stay in sync: one may miss a tone, but missing the rhythm can deteriorate the perception of the entire piece \cite{levitin_this_2019, reich_writings_2004}. Nevertheless, a well-executed asynchronous element -- syncopation, which is a deviation from an expected rhythmical pattern -- enriches the piece and may bring listeners enjoyment and a desire to move \cite{sioros_syncopation_2014}. Moving away from music, where tones are coherent and concurrently executed, language is also performed in antiphony as individuals take turns in conversations \cite{ravignani_chorusing_2014}. If we regard breathing as a dialogue between the system and the user, asynchronous forms of feedback can open up a new design space for deeper and more elaborate forms of interaction. Similar to asymmetry, careful and deft application of asynchronous elements in breathing feedback may break the patterns of habitual perception of breathing and make us more self-aware. 
 We recognise that it sometimes takes time and effort to learn a difficult breathing practice, but still, it is important that the user does not lose faith in their ability along the way. There needs to be a path towards overcoming the uncomfortable experiences through practice, step by step learning more and more, but not demanding too much too soon. 
 
-\subsection{Breathing Correspondence: Finding a Balance between Leading and Following}
+\subsubsection{Breathing Correspondence: Finding a Balance between Leading and Following}
 
 The findings made us think that a really interesting dialogue between the system and the user could be achieved, a dialogue that would rely on both letting users express their breathing, but at the same time being influenced, through feedback, encouragement or even strong pressure. We therefore continued to explore exactly how to find a balance point right between \textit{leading} and \textit{following} breathing patterns by first applying deep pressure -- almost to the point of being unpleasant -- and then releasing in rhythmic flow. We will refer to this experience as a \textit{breathing correspondence}. 
 
-\subsubsection{Experiencing different roles in the interaction}
+\paragraph{Experiencing different roles in the interaction}
 
 The explorations of different actuation patterns revealed how the inflatable pads could take on different roles in the interaction. If the actuation was following a predefined rhythm independent of the breathing sensor data, it was more likely to be perceived as not engaging in dialogue or adapting to the user, but instead leading the interaction and providing breathing instructions. They seemed to be "\textit{guiding or even steering the breath}", reinforced by the pressure physically pushing the body forward.
 
@@ -297,7 +296,7 @@ Further explorations showed that just sitting with the pressure and breathing in
 
 Kia reported similar experiences -- feeling that she could accept the system more willingly if she just let it act in the background while she was working away on her computer. Whether she was in fact following the feedback from the system or not became unimportant and she could relax into the experience. 
 
-\subsubsection{Reflecting on establishing a breathing correspondence}
+\paragraph{Reflecting on establishing a breathing correspondence}
 
 According to their role in the interaction, breathing-based designs can be split into two distinct strands: in the Self - System - Self modality \cite{prpa_inhaling_2020}, the system is following the user's breathing pattern \cite{abushakra_augmenting_2014, sonne_chillfish_2016, bingham_breath_2010, roo_inner_2017, prpa_hacking_2016, shaw_meditation_2007, aslan_hold_2016, pisa_towards_2017, sjoman_breathing_2018, moran_exopranayama_2016}, whereas in the System - Self - System modality \cite{prpa_inhaling_2020}, the user is following the pattern provided by the system \cite{wongsuphasawat_you_2012, yu_breathe_2015, soyka_enhancing_2016, dijk_breathe_2011}. Looking at the prevalence of the two strands among HCI projects, the majority of breathing-based systems belong to the first group, providing a mere representation of the user's breathing pattern of the user and in the process taking the role of a passive follower. Only a few systems take a leading role in the whole dialogue \cite{wongsuphasawat_you_2012, yu_breathe_2015, soyka_enhancing_2016} or one of the interaction modalities \cite{bumatay_investigating_2017, patibanda_life_2017}, providing users with a signal to follow. Despite the simplicity of the latter, it has proven to be a powerful interaction modality. Regardless of whether the user follows the interaction precisely or just leaves it as a peripheral stimulus, the interaction can provoke a relaxing and calming sensation when experienced for a prolonged period of time. This is also supported by the studies of Moraveji et al. \cite{moraveji_peripheral_2011, moraveji_breathtray_2012} showing the effectiveness of peripheral respiratory feedback on inducing a slower breathing rate without explicitly promoting focus on breath pacing or distracting users. 
 
@@ -307,7 +306,7 @@ The concept of correspondence proposed by Ingold \cite{ingold_being_2011} and fu
 
 
 %% DISCUSSION /CONCLUSION
-\section{Discussion and Conclusion}
+\subsection{Discussion and Conclusion}
 Through a first-person felt engagement over a longer time period, we uncovered several, previously unexplored breathing experiences spurred by different pressure patterns on the torso such as: 
 
 \begin{enumerate}
