@@ -145,9 +145,12 @@ For every generated image that we want to associate with a particular posture, w
 
 \subsection{Interaction Process}
 
-The interaction loop is completed when we feed the output of the regression model directly to the bottleneck layer of the CAE. Where \textit{p} is the posture represented by orientational values from the sensors and \textit{v} is the latent vector representation of a particular image \textit{i} from the training dataset, we can bridge data from the two models with the following formula
+The interaction loop is completed when we feed the output of the regression model directly to the bottleneck layer of the CAE. Where \textit{p} is the posture represented by orientational values from the sensors and \textit{v} is the latent vector representation of a particular image \textit{i} from the training dataset, we can bridge data from the two models with the following formula:
 
+\begin{equation}
 \[ f:p_n\xrightarrow{}v^n \xrightarrow{}i_n \]
+\end{equation}
+% TODO:Label and ref
 
 \subsection{User Feedback \& Discussion}
 
