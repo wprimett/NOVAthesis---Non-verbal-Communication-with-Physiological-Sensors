@@ -1,306 +1,169 @@
-\section{Latency Assessments when Using Multiple Acquisition Sources}
+\section{ServerBIT: Abstracting from Hardware Specificities through Network-driven Middlewares}
 
-\subsection{Motivation and Objective}
+This section describes a middleware framework that facilitates rapid application development by abstracting hardware specificities. With this framework, users can easily bridge hardware devices with state-of-the-art network protocols, making it possible to stream data packets to their custom applications. As a result, the physiological sensor data can be integrated into their code base without needing a dedicated API or language-specific library.
 
-Technological advancements in the field of sensory devices have allowed the collection of various bodily signals such as Acceleration (ACC), Electrocardiogram (ECG), Electromyogram (EMG), and Electrodermal Activity (EDA) using discrete wearable devices. These data streams can be used to validate semantic emotional descriptors based on valence and arousal measurements, linked to the user’s involuntary reactions transmitted by the Autonomic Nervous System (ANS). Where researchers may need to acquire data from many sources at once, we evaluate the use of the BITalino R-IoT, a low-cost sensory device designed for monitoring physiological activity in real-time.
+The source code for ServerBIT (r)evolution is available from:
+\url{https://github.com/BITalinoWorld/revolution-python-serverbit}
 
-A crucial feature we want researchers to be able to exploit is the ability to acquire and process data from multiple devices simultaneously. This can be configured to monitor the activity of many users or even to place sensors on additional body parts (to track movement from different limbs, for example). To benchmark the hardware capabilities of the device in experimental environments, we carry out tests to evaluate performance, outlining the absolute and relative latency in different conditions. These tests consider the effect of including additional devices to the network and differences in wireless range of data transmission.
+\paragraph{Overview}
 
-\subsection{Summary of Preliminary Results}
+Real-time streaming of embodied sensor data has enabled artists, designers, hobbyists and researchers to prototype new interaction modalities with systems that respond to the user’s physiological activity. Furthermore, integrating new biofeedback devices further supports exploration when developing rich interactive experiences. This chapter introduces the ServerBIT framework, a software tool for rapid and accessible sensor-based application development. This middleware allows users to connect sensory devices through wireless protocols, process incoming signals and stream data packets to new applications. These may include machine learning tools, real-time data visualisation, gesture-controlled games, software instruments, and even foreseeing the control of other hardware devices. Becoming familiar with such multifaceted workflows is complex, often requiring extensive support to overcome the persistent technical barriers of sensor-based development. ServerBIT intends to address these issues by providing an abstraction layer and promoting the distribution of example applications and tutorials that can be run locally, on the web, and even on mobile devices without needing additional software. By utilising globally compatible communication protocols, these software packages may be supplemented with user-specific configuration files to bypass tedious networking tasks, facilitating more effective remote support.
 
-In our tests, we calculate the time taken for the host computer to receive a response to a stimulus which changes in the analog input on the R-IoT device,which continuously sends data back to the host computer over a shared Wi-Fi network using the Open Sound Control (OSC) protocol. The stimulus signal is distributed to multiple devices which are included in the network to see the effect this has on latency. In addition, the test the impact of increasing the wireless communication distance from 1 metre to 5 metres. The test is run for a duration of several minutes to assess how the latency deviates over time.
-Results: As a base-latency, using one device at a placed a metre away from the wireless receiver, we calculated a mean latency of 8.9ms. This increased to 10.7ms as the distance increased to 5 metres. When we included 4 devices, we saw a 1.1ms average increase in latency at 1 metre and 1.3ms at 5 metres. The average difference in latency among the devices was calculated as 3.2ms and 5.9ms respectively. The latency measurements were deemed stable over the time period of the test with no observable trend. A complete analysis has been published on the BITalino R-IoT documentation page.
+% \subsection{Introduction}
 
-We found a slight increase in latency when using more devices on one network and as we increased the distance. Whilst this should be taken account for data synchronisation tasks, we would consider the BITalino R-IoT to be a suitable device for studies collecting physiological data from multiple sources. Our tests also support the use of the OSC protocol for this purpose.
+Physiological sensor data has become an increasingly growing field of interest in prototyping new interaction modalities. However, a significant limitation still exists in the ability to rapidly produce end-user applications\cite{alves_signalbit:_2013}. We foresee this hindrance being a result of the limited resources, abstract from the hardware layer, available to those who are not technically proficient in these fields. In addition, implementing more complex aspects of the software layer, such as time-critical operations and multithreading, introduce concepts that are likely to be non-trivial to novice programmers. Non-modular solutions that require a user to build everything from scratch can be highly time-consuming and unsupportive of spontaneous design choices.
 
-\subsection{An overview of the BITalino R-IoT}
+% In this section, we describe a middleware framework that aims to facilitate rapid application development by abstracting hardware specificities. With this framework, users can easily bridge hardware devices with state-of-the-art network protocols, making it possible to stream data packets to their custom applications. As a result, the physiological sensor data can be integrated into their code base, without the need for a dedicated API or language-specific library.
 
-\subsubsection{Device Overview}
+Our framework builds upon previous work from the thesis supervisor, \citeauthor{da_silva_web-based_2012} \cite{da_silva_web-based_2012,da_silva_bit:_2014} and extends a previous version of ServerBIT, which presents a bare-bones service to bridge the connection of a BITalino device to the user's web browser, where the sensor data can be handled in real-time. Our approach generalises this concept to enable interfacing with other hardware devices and network communication protocols.
 
-The BITalino R-IoT module is the 7th generation of IRCAM's wireless sensor digitizing unit \cite{noauthor_bitalino_nodate}, an essential tool linking motion sensing, gestural recognition and Live Performance Arts. Since 2001, IRCAM aimed to provide a low latency, high data-rate \& resolution and stage compatible devices, capable of streaming gestural information to the computer from multiple performers. The BITalino R-IoT embeds a 9-axis digital IMU sensor (LSM9DS1) featuring a 3-axis accelerometer, a 3-axis gyroscope and a 3-axis magnetometer, allowing for instance the onboard computation of the absolute orientation of the module in space \cite{matzka_developing_2019}. The sensor is attached to the SPI port to sample the 16-bit motion data at high speed. In addition to this, there are two 12-bit ADC inputs, compatible with the BITalino sensor modules. In this section, we will refer from now to the BITalino R-IoT as R-IoT. More information about the device can be found in the official documentation1.
+% Before describing our design choices, we will depict a selection of existing software services and comment on how they support users throughout different stages of the development pipeline for sensor-based applications. We'll then present the notable features and functionalities that have been implemented into our software package. Alongside a basic example for real-time data visualization in the browser, we describe three use-cases that have been realized by the additional features of ServerBIT. These briefly demonstrate the use of multiple devices, data transmission over a local WiFi network, interacting with mobile applications, and the control of actuation mechanisms. The chapter then concludes with a proposition of future work directions, assessing to what extent, this approach can be an effective acceleration tool for physiological-application development.
 
-\subsubsection{Wireless Communication Methods}
-Out of the box, the R-IoT is programmed to transmit data over Open Sound Control (OSC)\footnote{Open Sound Control: \url{http://opensoundcontrol.org/}}. This is a communication protocol for communication among computers, sound synthesizers, and other multimedia devices that is optimized for modern networking technology (OSC). The main features include the following:
+\subsection{Background and Motivation}
 
-\begin{itemize}
-  \item Open-ended, dynamic, URL-style symbolic naming scheme
-  \item Symbolic and high-resolution numeric argument data
-  \item Pattern matching language to specify multiple recipients of a single message
-  \item High resolution time tags
-  \item 'Bundles' of messages whose effects must occur simultaneously
-\end{itemize}
+% \subsection{Overview of Software for BITalino Data Acquisition}
+The software package described in this text adapts itself from a preexisting version of ServerBIT\footnote{\url{http://github.com/BITalinoWorld/python-serverbit}}, which provides a bare-bones service that would bridge the connection of a BITalino device to the user’s web browser, where the data can be handled in real-time. The framework emulates the software architecture of the high-level application, \textit{OpenSignals}, purposed for data visualisation and analysis. As both versions remain available, we identify this rendition of the software as, \textit{ServerBIT (r)evolution}. Amongst the features documented in this chapter, the software is designed to support the BITalino R-IoT device (see Section \ref{riot}), enabling spontaneous data transmission over Wi-Fi with many clients simultaneously, which comes essential later in our practice works.
 
-With the default configuration, each device will send an array of 21 float values every 5 milliseconds. This array includes motion data from the 9-axis IMU, as well as the analog inputs when are coupled with an OSC message address that includes the ID number of the device. We can assign individual ID numbers to each device in the network to separate the incoming data within the host computer.
+\paragraph{Other Services for Sensor-Based Application Development} \label{services}
+High-level software tools such as Maxuino\footnote[2]{\url{http://www.maxuino.org/about}} and the Arduino Cloud\footnote[3]{\url{http://www.arduino.cc/en/IoT/HomePage}} platform present a graphical interface to assist users in connecting their hardware devices and streaming sensory data in real-time; certain features assist the user to troubleshoot common connectivity issues and validate their input. We observe these services as supportive within rapid prototyping environments when compared to command-line interfaces.
 
-\subsection{Experimental Protocol}
+Code templates such as the BITalino OSC bridge\footnote[4]{\url{http://gitlab.doc.gold.ac.uk/mick/bitalino-OF}} call upon functions given in existing frameworks to stream sensor data to other applications. When confronting this \textit{``quick and dirty hack''}, there remains a reasonable technical barrier as some programming experience is necessary to develop and operate a complete system. On the other hand, MyoMapper \cite{donato_myo_nodate}  represents a more comprehensive software toolkit for prototyping biosignal-based interactions. From the diverse range of research projects realised using this toolkit \cite{brown_simple_2018,bullock_approaches_2016,di_donato_accessible_2019}, this can be recognised as a highly effective approach for the intended purpose. However, this software is only compatible with the Thalmic's Myo armband\footnote{\url{https://www.myo.com/}}. Whilst this is a convenient solution for those who wish to use a prefabricated product, viable interaction modalities are constrained to the built-in sensors and a limitation of bodily placements imposed by the armband's construction.
 
-% \subsection{Objective \& Methods}
-In our tests, we calculate the time taken for the host computer to receive a response to a stimulus which changes in the analog input on the R-IoT device. The stimulus signal is distributed to multiple devices which are included in the network to see the effect this has on latency. The test is run for a duration of several minutes to assess how the latency deviates over time.
+\paragraph{Supported Hardware} \label{hardware}
 
-\paragraph{Reference Signal and Timestamps}
-The stimulus signal is originally triggered from the host computer, which sends single byte messages to a teensy 3.2 board\footnote{Teensy 3.2: \url{https://www.pjrc.com/store/teensy32.html}} via USB serial. Upon receiving a message from the host computer, the teensy board will output either 3.3 or 0 volts that is put through a voltage divider before reaching the analog input of the R-IoT device. The R-IoT then sends OSC packets (containing the analog input value) back to the host computer via a TP-Link MR3020 Wi-Fi router. The stimulus is set to switch every second, resulting in an oscillation of 0.5 Hz (Figure \ref{fig:latency_fig1}).
+A technical constraint apparent in the previous versions of ServerBIT was the hardware-specific architecture, only permitting the use of a BITalino board\footnote{\url{https://bitalino.com/datasheets/REVOLUTION_BITalino_Board_Kit_Datasheet.pdf}} as an input device. In order to overcome this issue, it was necessary to propose a homogeneous workflow between different sensory hardware devices. In Section \ref{riot}, we describe how ServerBIT works with the BITalino R-IoT\footnote{\url{https://bitalino.com/en/r-iot-kit}} which communicates over WiFi. These devices are directly compatible with a host of analogue and digital inputs for monitoring physiological activity e.g. electrocardiography and electromyography sensors. With this technical flexibility in place, we aim to develop an adaptable prototyping tool that can be utilised throughout our research.
+% \newpage
 
-% Figure 1
+\subsection{Data Transmission Through Web-Based Protocols}
+The fundamental reasoning behind ServerBIT is to continuously stream sensor data from BITalino devices to third-party applications in real-time. ServerBIT opts for network-based communication protocols, allowing data transmission to a wide range of applications without needing a dedicated API. Given a basic use case where the sensor data only needs to reach one host computer, ServerBIT can be used to run a server assigned to a local address. However, for more advanced use cases, such as those concerning collaborative interaction or sophisticated biofeedback systems, it is also possible to send data to a static IP address associated with another computer, mobile device or microcontroller.
+
+\paragraph{WebSocket}
+
+The Websocket protocol is a recent advancement in web technologies \cite{lombardi_websocket:_2015}, introduced to address the growing demand for applications that require a full-duplex connection between the web interface and server-side processes. ServerBIT supports communication to a web browser environment via a WebSocket connection. Here, users are able to mock up interfaces easily, making use of native HTML elements and even taking advantage of the many open-source, well-documented data visualisation libraries available. Furthermore, it’s highly convenient to distribute applications developed using this method, particularly when used in conjunction with a cloud-based coding platform such as CodeCircle \cite{fiala_collaborative_2016}.
+
+Building upon the WebSocket-based software architecture, in our approach data, is sent between a server and client within JSON formatted strings. This format is independent of any programming language, and the data structure consists of key/value pairs making the result more human-readable with associative descriptors \cite{marrs_json_2017}. When a new JSON string is generated by ServerBIT, text labels are applied to the channels that the device acquires data from. Users are granted the option to alter these labels depending on the arrangement of the sensors so when the data is accessed on the client-side, the structure of the code is more coherent in regards to the specific use case. This would be appropriate, for example, in a workshop or tutorial scenario where participants are expected to apply specific sensor inputs into a preexisting code template.
+
+\paragraph{Open Sound Control}
+
+Open Sound Control (OSC) has been implemented into a plethora of multimedia environments. Its use is supported by many common programming languages as well as a variety of hardware devices. More recently, it has been integrated into high-level software such as VST synthesisers and is becoming an increasingly popular option for designing New Interfaces for Musical Expression (a.k.a NIME); this can be justified by the integration of timestamps and forward synchronisation \cite{schmeder_best_2010}. Whilst OSC was developed to support research programs that focus on music and technology \cite{freed_features_2009}, it’s also proven to be a compelling choice for supporting other interaction modalities.
+
+\textcolor{red}{UPD vs TCP???}
+
+Comparable with the WebSockets approach, each ‘frame’ of data is sent as a single bundle, containing sub-messages for each channel defined by a human-readable label. As a result, each input in the bundle can be processed simultaneously by the client, lending support to multi-modal solutions. The functionality given to the naming scheme makes it highly suitable for multiple device management. Where each message is specified by a numerical device ID and channel name, pattern matching language can be used to nominate multiple elements within the bundle. For example, if the user wants to pick out all the data from a specific device, they can listen for messages addressed as \textbf{/deviceID/*}. Similarly, data from the first two analogue channels from any device in the network would accumulate under the address \textbf{/*/{A1, A2}}.
+
+\subsection{System Overview}
+
+\paragraph{Physical Interaction Environment}
+This defines the space where physiological sensors are interfaced with the end-users interacting with the application. Many of these sensors must be in direct contact with the skin; common solutions for this involve using gelled electrodes and wearable hardware components. These sensors are connected to a microcontroller, which forwards sensor data to ServerBIT wirelessly over Bluetooth or WiFi.
+
+\paragraph{ServerBIT (r)evolution}
+This part of the system, running on a host computer, can be split into two sub-layers. One is a graphical interface for configuration, where the designer establishes one or more hardware connections and defines how the sensor data will reach the software application. From here, incoming data and control messages are re-formatted according to the desired communication protocol: WebSockets or OSC. This sub-layer runs continuously in the background, where the technical processes are abstracted from the user.
+
+\paragraph{Software Application}
+The outcome of the system is dictated by the software receiving the data from ServerBIT; this defines the artefacts the end-user(s) will be interacting with, and what modalities will be utilised to do so.
+As a bidirectional protocol, this layer also handles any biofeedback mechanisms that are implemented in the physical interaction environment.
+% In section \ref{Examples}, we will present a set of example applications that use the framework to demonstrate the versatility of end-user solutions viable with ServerBIT.
+
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.7\textwidth]{Chapters/Figures/technical/Latency/figure1.png}
-    \caption{Experimental Architecture for Latency Tests.}
-    \label{fig:latency_fig1}
+    \includegraphics[width=\textwidth]{Chapters/Figures/technical/ServerBIT/ServerBIT_Archietecture_EXT.png}
+    \caption{Overview of the ServerBIT architecture.}
+    \label{fig:diagram1}
 \end{figure}
 
-A timestamp is logged at t\textsubscript{0}, the moment the trigger message is sent from the host computer. Another is logged at t\textsubscript{1}, when the change is received in the incoming OSC message. From here, we define the latency as t\textsubscript{1} – t\textsubscript{0} for each instance of a trigger message. This approach is partially inspired by the closed-loop latency tests performed by Sebastian Madgwick for the x-OSC device \cite{madgwick_x-osc_2013}, where a square wave is fed into the analog input of the device and outputted into a frequency counter to measure latency. We acknowledge that this method is not as accurate due to the small latency that occurs between the host computer and the Teensy, which is covered in section [section]. However, we consider this a low-cost solution that can be more easily replicated for the user’s specific conditions and environment.
+\subsection{Design Principles}
 
-% \subsubsubsection{Multiple Device Setup}
-\paragraph{Multiple Device Setup}
-To test multiple devices simultaneously, we feed to the same reference signal from the Teensy to many R-IoTs, shown in Figure \ref{fig:latency_fig2} The devices are configured to stream data through the same Wi-Fi router, where the data is addressed by the ID number of each device.
+\paragraph{Sequential Data Format}
+Data buffers provide information regarding how a signal behaves over a given time period. Sensor data is received as a bundle containing an array of contiguous float values for each channel, where the most recent reading is given at the head of the buffer. The proposed ServerBIT development pipeline provides a convenient format for data visualisation and digital signal processing by granting users access to the entire frame buffer.
+
+\paragraph{Open Source}
+Users should acknowledge that they can make full use of the provided examples without needing to access the ServerBIT source code. Nonetheless, if a user intends to re-purpose the software to satisfy their specific project, it may be necessary to alter certain components of the script. Some reasons for this might include: adding support for additional hardware devices, pre-processing signals before forwarding to external applications or integrating functionality from additional libraries. With this considered, the source code is openly available to the public, including instructions on compiling and running the application from the user's command line.
+
+\paragraph{Automatic Device Connection and Re-connection Handling}
+When new users try to incorporate sensor-based interaction, a considerable technical barrier has their application successfully recognise the device connection. In a rapid prototyping environment, users are susceptible to more issues as they wish to experiment with different device configurations. Matters can worsen when using multiple devices, particularly when each relies on different communication technologies. For example, the BITalino requires either standard Bluetooth or BLE, whereas the R-IoT device communicates over WiFi. When a connection drops, the application as a whole may fail to operate and troubleshooting the specific issue can be onerous to those unfamiliar with the hardware.
 
 \begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.7\textwidth]{Chapters/Figures/technical/Latency/figure2.png}
-    \caption{Feeding Reference Signal to Multiple R-IoTs.}
-    \label{fig:latency_fig2}
+    \centering
+    \includegraphics[width=100mm,scale=1.0]{Chapters/Figures/technical/ServerBIT/device_selection.png}
+    \caption{ServerBIT configuration page.}
+    \label{fig:dev_selection}
 \end{figure}
 
-\paragraph{Device Firmware}
-Each device is flashed with the default firmware, which implements algorithms to compute the absolute orientation of the device from the raw IMU data, proving quaternions and Euler angles every time a data packet is transmitted. For this reason, our tests can be considered to account for the latency that occurs when retrieving motion data.
+On the configuration page presented in Figure \ref{fig:dev_selection}, users can use the device finder menu, which searches for available serial, Bluetooth and Wi-Fi connections nearby. From here, users are presented with an accumulation of device addresses, which can be added to ServerBIT's device list. When the configuration is successfully updated, ServerBIT will automatically attempt to establish a new connection with each device in the list.
 
-\subsection{Results \& Discussion}
+\paragraph{Physiological Data Transmission Over Wi-Fi} \label{riot}
 
-\subsubsection{Conditions}
-For these tests, the device(s) were first placed less than 1 metre away from the router which was connected to the host via an ethernet connection. From the test, we extracted 248 triggers form a total duration of approximately 8 minutes and 15 seconds. We then repeated the tests with the device(s) placed 5 metres away from the router.
+ServerBIT is designed to be compatible with BITalino R-IoT devices, which transmit multiple data channels over a local Wi-Fi network. This alternative to Bluetooth-based communication holds several advantages. However, it necessitates for the user to set the IPv4 address of their computer to a specific static IP address. For users unfamiliar with this process, this will likely increase the burden of pairing new devices, thus interrupting application development. Before searching for new devices, ServerBIT will detect the current network configuration and generate a shell or bash command according to the operating system. The command can be validated and executed with the graphical interface. Upon execution, ServerBIT matches the computer's IPv4 address accordingly with the module's destination address.
 
-\subsubsection{Single Device}
-
-\paragraph{Data Analysis}
-For the duration of the test, we accumulate the latencies for every trigger and calculate a minimum, maximum and mean average latency. The results are given in Table \ref{table:latency_tab1}. The results span between 6 to 11 milliseconds. When we repeat the test at greater distance, we see a greater range of values and a higher average, as shown in Table \ref{table:latency_tab2} and Figure \ref{fig:latency_fig3}. Over the duration of the acquisitions, we could not observe any increasing/decreasing trend in the results.
-
-% % Table 1
-% \begin{table}[!h]
-%     \centering
-%     \begin{tabular}{*{4}{l}}\hline
-%     % \rowcolor[HTML]{34CDF9}
-%     \textbf{Device ID} & \textbf{\begin{tabular}[c]{@{}l@{}}Maximum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Minimum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Mean\\ Latency (ms)\end{tabular}} \\
-%     \\[-1em]
-%     \hline
-%     \\[-1em]
-%     0                  & 11.019                        & 6.605                & 8.859\\
-%     \\[-1em]
-%     \hline
-%     \end{tabular}
-% \caption{Latency results for one device (1 metre).}
-% \label{table:latency_tab1}
-% \end{table}
-
-% % Table 2
-% \begin{table}[!h]
-%     \centering
-%     \begin{tabular}{*{4}{l}}\hline
-%     % \rowcolor[HTML]{34CDF9}
-%     \textbf{Device ID} & \textbf{\begin{tabular}[c]{@{}l@{}}Maximum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Minimum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Mean\\ Latency (ms)\end{tabular}} \\
-%     \\[-1em]
-%     \hline
-%     \\[-1em]
-%     0                  & 11.019                        & 6.605                & 8.859\\
-%     \\[-1em]
-%     \hline
-%     \end{tabular}
-% \caption{Latency results for one device (1 metre).}
-% \label{table:latency_tab2}
-% \end{table}
-
-\begin{table}[htbp]
-    \begin{subtable}[c]{\textwidth}
-        \centering
-            \begin{tabular}{*{4}{l}}\hline
-            % \rowcolor[HTML]{34CDF9}
-            \textbf{Device ID} & \textbf{\begin{tabular}[c]{@{}l@{}}Maximum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Minimum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Mean\\ Latency (ms)\end{tabular}} \\
-            \\[-1em]
-            \hline
-            \\[-1em]
-            0                  & 11.019                        & 6.605                & 8.859\\
-            \\[-1em]
-            \hline
-            \end{tabular}
-        \caption{Latency at 1metre.}
-        \label{table:latency_tab1}
-    \end{subtable}
-    \hfill
-    \hspace{2em}
-    \begin{subtable}[c]{\textwidth}
-        \centering
-            \hspace{1em}
-            \begin{tabular}{*{4}{l}}\hline
-            % \rowcolor[HTML]{34CDF9}
-            \textbf{Device ID} & \textbf{\begin{tabular}[c]{@{}l@{}}Maximum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Minimum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Mean\\ Latency (ms)\end{tabular}} \\
-            \\[-1em]
-            \hline
-            \\[-1em]
-            0                  & 20.603                        & 7.077                & 10.702\\
-            \\[-1em]
-            \hline
-            \end{tabular}
-        \caption{Latency at 5 metres.}
-        \label{table:latency_tab2}
-     \end{subtable}
-     \caption{Latency measurements for one device.}
-    \label{table:latency_one_device}
-\end{table}
-
-% Figure 3
 \begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.7\textwidth]{Chapters/Figures/technical/Latency/figure3.png}
-    \caption{Latency results for one device (1 metre).}
-    \label{fig:latency_fig3}
+    \centering
+    \includegraphics[width=\textwidth]{Chapters/Figures/technical/ServerBIT/ipv4_cmd_osx.png}
+    \caption{Network command generated and displayed in the browser (MacOS).}
+    \label{fig:cmd_osx}
 \end{figure}
 
-\subsubsection{Multiple Devices}
+\paragraph{Uninterrupted Hardware Connections During Development}
 
-% \paragraph{Configuration}
-For the following, we report our results when using 4 devices simultaneously. To test multiple devices, we pair each R-IoT to the same router and separate the incoming data according to the ID number of the device. All devices are sending data to the same port number. Other conditions are kept the same as the previous test.
+A trigger handler is automatically established and initiated for each device added to the network. The trigger handler runs in the background and listens for OSC messages addressed in the following format /\textbf{``deviceID/output''}. These messages authorise control of the separate digital and analog outputs on individual or multiple devices. This bidirectional communication intends to support interactive systems design where biofeedback mechanisms respond to physiological input in real-time. This approach can also be used to send commands to WiFi-enabled devices, bypassing the labour of bridging the devices over a wired serial connection.
 
-\paragraph{Data Analysis}
+\paragraph{Biofeedback Control Using OSC} \label{Biofeedback}
 
-\subparagraph{Absolute Latency}
-The minimum, maximum and mean latency measures for the individual devices are shown in Table \ref{table:latency_tab3} and \ref{latency_tab4}. We can see the maximum and mean latency has increased in all instances when more devices are added to the network. The results are fairly consistent between each device aside from number 2, which doesn’t reach as high of a maximum. From all 992 triggers, the latency durations ranged from 6.55 to 17.31 milliseconds, and the mean average was calculated as 10.03 milliseconds. We present these results as a histogram in Figure \ref{fig:latency_fig4} and Figure \ref{fig:latency_fig5}. When we repeat the test at 5 metres, we calculate a small increase in the average latency and a higher maximum amongst all the devices.
+For each device added to the network, a trigger handler is automatically established and initiated. The trigger handler runs in the background and listens for OSC messages addressed in the following format \textit{``/\textbf{deviceID}/output''}. These messages authorise control of the separate digital and analog outputs on individual or multiple devices. This bidirectional communication intends to support the design of interactive systems where biofeedback mechanisms respond to physiological input in real-time. This approach can also be used to send commands to WiFi-enabled devices, bypassing the labour of bridging the devices over a wired serial connection.
 
-% Table 3
-% \begin{table}[!h]
-%     \centering
-%     \begin{tabular}{*{4}{l}}\hline
-%     % \rowcolor[HTML]{34CDF9}
-%     \textbf{Device ID} & \textbf{\begin{tabular}[c]{@{}l@{}}Maximum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Minimum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Mean\\ Latency (ms)\end{tabular}} \\
-%     \\[-1em]
-%     \hline
-%     \\[-1em]
-%     0                  & 11.019                        & 6.605                & 8.859\\
-%     \\[-1em]
-%     \hline
-%     \end{tabular}
-% \caption{Latency results for one device (1 metre).}
-% \label{table:latency_tab3}
-% \end{table}
+\subsection{Running A ``Hello World'' Example}
+\label{serverBIT_run_through}
 
-\begin{table}[htbp]
-    \begin{subtable}[c]{\textwidth}
-        \centering
-            \begin{tabular}{*{4}{l}}\hline
-            % \rowcolor[HTML]{34CDF9}
-            \textbf{Device ID} & \textbf{\begin{tabular}[c]{@{}l@{}}Maximum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Minimum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Mean\\ Latency (ms)\end{tabular}} \\
-            \\[-1em]
-            \hline
-            \\[-1em]
-            0                  & 16.243                                                                  & 6.705                                                                   & 10.011                                                               \\
-            \\[-1em]
-            1                  & 17.201                                                                  & 6.657                                                                   & 10.007                                                               \\
-            \\[-1em]
-            2                  & 14.877                                                                  & 6.550                                                                   & 9.998                                                                \\
-            \\[-1em]
-            3                  & 17.305                                                                  & 6.868                                                                   & 10.130  \\
-            \\[-1em]
-            \hline
-            \end{tabular}
-        \caption{Latency at 1 metre.}
-        \label{table:latency_tab3}
-    \end{subtable}
-    \hfill
-    % \hspace{2em}
-    \caption{Latency measurements for four devices.}
-    \label{table:latency_four_devices}
-\end{table}
+\paragraph{Pairing a New Device} \label{Pairing}
+In the case of BITalino, every device has a unique hardware address that must be declared within ServerBIT. On the configuration page (Figure \ref{fig:dev_selection}), users are presented with a list of device addresses that have already been paired with the host computer. One or more devices can be selected from the list and, upon submission, ServerBIT will begin to read sensor data from each module respectively.
 
-% Figure 4
+\paragraph{Data Acquisition}
+Once a device has been paired, the user can determine which channels will be acquired and modify the format in which they will be transmitted. In order to run this first example, the user does not need to make any changes here, as the default configuration is already set up to read and stream data from the first analogue input labelled \textbf{'A1'}.
+
+\paragraph{Network Settings}
+At the bottom of the configuration page, the user can specify the network protocol for communicating with the interactive application layer. By default, ServerBIT is set to stream sensor data to a local server (\textit{127.0.0.1} or \textit{localhost}) over the WebSocket protocol using the port number 8000; this configuration can be used with the web-based examples provided in the software package.
+
+\paragraph{ClientBIT Example}
+Provided within the ServerBIT package is a basic example that can be used to test the connection to a BITalino device and visualise an incoming signal on the browser. \textit{ClientBIT.html} is an example HTML/JS
+test client which prompts the back end to initialise a connection to a specified BITalino device. Once a connection is established from host to client, sensor data is acquired from channel \textbf{'A1'} and plotted in real-time. The HTML file can be found in the ServerBIT directory, located inside the user's home folder, which also includes the \textit{jquery} library files required to run the example.
+
 \begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.7\textwidth]{Chapters/Figures/technical/Latency/figure4.png}
-    \caption{Latency results for one device (1 metre).}
-    \label{fig:latency_fig4}
+    \centering
+    \includegraphics[width=65mm,scale=0.65]{Chapters/Figures/technical/ServerBIT/ClientBIT_html.png}
+    \caption{ClientBIT.html displaying an EMG signal in the browser.}
+    \label{fig:ClientBIT}
 \end{figure}
+%\subsection{Controlling Applications with Multiple Devices}
 
-% Table 4
-\begin{table}[htbp]
-    \begin{subtable}[c]{\textwidth}
-        \centering
-            \begin{tabular}{*{4}{l}}\hline
-            % \rowcolor[HTML]{34CDF9}
-            \textbf{Device ID} & \textbf{\begin{tabular}[c]{@{}l@{}}Maximum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Minimum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Mean\\ Latency (ms)\end{tabular}} \\
-            \\[-1em]
-            \hline
-            \\[-1em]
-            0                  & 27.992                                                                  & 6.720                                                                   & 11.023                                                               \\                                                               \\
-            \\[-1em]
-            1                  & 27.559                                                                  & 7.248                                                                   & 11.916                                                               \\
-            \\[-1em]
-            2                  & 27.990                                                                  & 6.857                                                                   & 11.263                                                               \\
-            \\[-1em]
-            3                  & 26.346                                                                  & 6.837                                                                   & 10.830 \\
-            \\[-1em]
-            \hline
-            \end{tabular}
-        \caption{Latency at 5 metres.}
-        \label{table:latency_tab4}
-    \end{subtable}
-    \hfill
-    % \hspace{2em}
-    \caption{Latency measurements for four devices.}
-    \label{table:latency_four_devices_2}
-\end{table}
+\subsection{Exporting and Sharing Applications}
 
-% \begin{table}[h]
-%     \begin{subtable}[c]{\textwidth}
-%         \centering
-%             \begin{tabular}{*{4}{l}}\hline
-%             % \rowcolor[HTML]{34CDF9}
-%             \textbf{Device ID} & \textbf{\begin{tabular}[c]{@{}l@{}}Maximum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Minimum\\ Latency (ms)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}Mean\\ Latency (ms)\end{tabular}} \\
-%             \\[-1em]
-%             \hline
-%             \\[-1em]
-%             0                  & 11.019                        & 6.605                & 8.859\\
-%             \\[-1em]
-%             \hline
-%             \end{tabular}
-%         \caption{Latency at 5 metres.}
-%         \label{table:latency_tab4}
-%     \end{subtable}
-%     \hfill
-%     % \hspace{2em}
-%     \caption{Latency measurements for four devices.}
-%     \label{table:latency_four_devices}
-% \end{table}
+\paragraph{Portable Configurations}
 
-% Figure 5 Histogram of absolute latencies (5 metres)
+When attempting to distribute example applications to new users, we often perceive difficulties where additional configuration tasks are required to run the application. This process can be inefficient when involving many participants or even remote scenarios, particularly when dealing with users unfamiliar with the specific technologies and software libraries.
+
+A major goal of ServerBIT was to improve the portability of sensor-based applications. For this to be satisfied, it should be possible for new users to receive a software package that can be executed on their machine without the need to make changes to the source code. At a minimum, such a software package should include (1) the ServerBIT executable, (2) the source code for the application that handles the incoming data, and (3) a preset configuration file that can be imported with the ServerBIT GUI.
+
+\paragraph{Saving a Preset}
+
+The ServerBIT configuration page is accessible from a web browser. When accessing the page for the first time, the user is presented with the default settings. In order to interact with the software, the user must select and pair at least one new device (see Section \ref{serverBIT_run_through}). When completed, clicking \textbf{``Submit''} at the bottom of the form will save the current configuration into the ServerBIT home directory as \textit{config.json}.
+
 \begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.7\textwidth]{Chapters/Figures/technical/Latency/figure5.png}
-    \caption{Latency results for one device (1 metre).}
-    \label{fig:latency_fig5}
+    \centering
+    \includegraphics[width=\textwidth]{Chapters/Figures/technical/ServerBIT/Websockets_ctrl.png}
+    \caption{Workflow of the configuration saving process.}
+    \label{fig:MVC_Diagram}
 \end{figure}
 
-\subparagraph{Relative Latency}
+% \newpage
+This micro-framework was designed under a Model-View-Controller (MVC) architecture. A Python WebSocket server communicates between the presentation layer and the processing and persistency layers \cite{da_silva_web-based_2012}. The unified process can be separated into three interdependent modules, as shown in Figure \ref{fig:MVC_Diagram}, authorising access to network properties and low-level hardware specificities from a visual interface.
 
-As well as the response time between each individual device and the host computer, we are also interested in the difference in latency of the received message between all the devices in the network. This is important to enable data synchronisation between sources. For each trigger, we calculate the difference between the first and the last response out of the 4 devices. From our first acquisition, the mean average latency difference was calculated as 3.22 milliseconds with a maximum 8.96. In Figure \ref{fig:latency_fig6} and \ref{fig:latency_fig7} The data is plotted as a histogram to assess the likelihood of these latency differences occurring. When we increase the distance, we find the maximum relative latenscy goes up to 20.148 milliseconds, and we calculate an increased average of 5.925 milliseconds.
+\paragraph{Loading an Existing Configuration File}
 
-% Figure 6
-\begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.7\textwidth]{Chapters/Figures/technical/Latency/figure6.png}
-    \caption{Latency results for one device (1 metre).}
-    \label{fig:latency_fig6}
-\end{figure}
+From the browser interface, users can import an existing configuration file in ServerBIT's JSON format. The new settings, such as device addresses and channel labels, will be displayed as form entries; these can be altered accordingly and saved by re-submitting the form.
 
-% Figure 7
-\begin{figure}[htbp]
-  \centering
-    \includegraphics[width=0.7\textwidth]{Chapters/Figures/technical/Latency/figure7.png}
-    \caption{Latency results for one device (1 metre).}
-    \label{fig:latency_fig7}
-\end{figure}
+Users should note that for the sensor data to reach a new OSC or WebSocket listener, the port number and host IP address must match what's assigned to the ServerBIT configuration. If these parameters are changed from their defaults, they should be saved to the configuration file so the sensor data can stream to the server upon launching without issues.
 
-\subsection{Discussion}
+\subsection{Summary}
 
-\subsubsection{Limitations}
-There are a couple of factors regarding wireless configuration that are worth noting. First is that all the devices were all sending to the same port number (8888). We did this for convenience and ease of programming. However, we acknowledge that separating ports for each device may have an effect of performance, as advised in the official documentation \cite{noauthor_bitalino_nodate}. Secondly, we set a WPA-2 password on the network which uses more bandwidth. Another factor that is briefly addressed in the document is the added latency between the host computer and the Teensy 3.2, connected by USB. As the communication was dependent on single byte messages, we assume that this is relatively insignificant to the final results\footnote{Serial Latency: \url{http://neophob.com/2011/04/serial-latency-teensy-vs-arduino/}}.
-
-\subsubsection{Latency Assessment}
-
-From the results, we conclude the following factors to have an impact on the latency between the R-IoT and the host computer. Having more devices in the network will increase the average latency and maximum latency. Additionally, increasing the distance between the R-IoT(s) and the Wi-Fi router will also increase the average latency. When we tested four devices at 5 metres, we observed a few instances of the latency being much higher than the average, compared to when we tested at a short distance. We also found that the distance would affect the difference in latency between devices, which would have an impact on data synchronization.
+In this chapter, we presented ServerBIT (r)evolution, a software toolkit serving to complete the interaction loop between sensory hardware devices and multimedia applications, including those that can be run on a web browser. We provide a brief overview of existing utilities, which deliver a comparable service of abstracting hardware-specific configurations within a rapid-prototyping scenario. From this, we formulate criteria for a set of software requirements based on the common issues developers experience when prototyping new interaction modalities with physiological sensors; this is used to justify our design choices which are subsequently described throughout the report.
+ % Three specialist use-cases are reviewed to demonstrate some of the prototyping capabilities that go beyond what was provided in the previous iterations of ServerBIT.
+Proposed future work will consider the evaluation of the toolkit as an educational tool, with ambitions to introduce sensor-based applications to new communities that specialise in other technical domains. Such field-work opportunities will advocate for the assessment of user feedback to discover in what scenarios this approach is potentially advantageous and later warrant new adaptations of the toolkit in forthcoming iterations.
