@@ -22,12 +22,12 @@ Our framework builds upon previous work from the thesis supervisor, \citeauthor{
 \section{Background and Motivation}
 
 % \subsection{Overview of Software for BITalino Data Acquisition}
-The software package described in this text adapts itself from a preexisting version of ServerBIT\footnote{\url{http://github.com/BITalinoWorld/python-serverbit}}, which provides a bare-bones service that would bridge the connection of a BITalino device to the user’s web browser, where the data can be handled in real-time. The framework emulates the software architecture of the high-level application, \textit{OpenSignals}, purposed for data visualisation and analysis. As both versions remain available, we identify this rendition of the software as, \textit{ServerBIT (r)evolution}. Amongst the features documented in this chapter, the new software is designed to support the BITalino R-IoT device, enabling spontaneous data transmission over Wi-Fi with many clients simultaneously, which comes essential later in our practice works.  
+The software package described in this text adapts itself from a preexisting version of ServerBIT\footnote{\url{http://github.com/BITalinoWorld/python-serverbit}}, which provides a bare-bones service that would bridge the connection of a BITalino device to the user’s web browser, where the data can be handled in real-time. The framework emulates the software architecture of the high-level application, \textit{OpenSignals}, purposed for data visualisation and analysis. As both versions remain available, we identify this rendition of the software as, \textit{ServerBIT (r)evolution}. Amongst the features documented in this chapter, the new software is designed to support the BITalino R-IoT device, enabling spontaneous data transmission over Wi-Fi with many clients simultaneously, which comes essential later in our practice works.
 
 \paragraph{Other Services for Sensor-Based Application Development} \label{services}
 High-level software tools such as Maxuino\footnote[2]{\url{http://www.maxuino.org/about}} and the Arduino Cloud\footnote[3]{\url{http://www.arduino.cc/en/IoT/HomePage}} platform present a graphical interface to assist users in connecting their hardware devices and streaming sensory data in real-time; certain features assist the user to troubleshoot common connectivity issues and validate their input. We observe these services as supportive within rapid prototyping environments compared to command-line interfaces.
 
-Code templates such as the BITalino OSC bridge\footnote[4]{\url{http://gitlab.doc.gold.ac.uk/mick/bitalino-OF}} call upon functions given in existing frameworks to stream sensor data to other applications. When confronting this \textit{"quick and dirty hack"}, there remains a reasonable technical barrier as some programming experience is necessary to develop and operate a complete system. On the other hand, MyoMapper\cite{donato_myo_nodate}  represents a more comprehensive software toolkit for prototyping biosignal-based interactions. From the diverse range of research projects realised using this toolkit\cite{brown_simple_2018,bullock_approaches_2016,di_donato_accessible_2019}, this can be recognised as a highly effective approach for the intended purpose. However, this software is only compatible with the Thalmic's Myo armband\footnote{\url{https://www.myo.com/}}. Whilst this is a convenient solution for those who wish to use a prefabricated product, viable interaction modalities are constrained to the built-in sensors and a limitation of bodily placements imposed by the armband's construction.
+Code templates such as the BITalino OSC bridge\footnote[4]{\url{http://gitlab.doc.gold.ac.uk/mick/bitalino-OF}} call upon functions given in existing frameworks to stream sensor data to other applications. When confronting this \textit{``quick and dirty hack''}, there remains a reasonable technical barrier as some programming experience is necessary to develop and operate a complete system. On the other hand, MyoMapper\cite{donato_myo_nodate}  represents a more comprehensive software toolkit for prototyping biosignal-based interactions. From the diverse range of research projects realised using this toolkit\cite{brown_simple_2018,bullock_approaches_2016,di_donato_accessible_2019}, this can be recognised as a highly effective approach for the intended purpose. However, this software is only compatible with the Thalmic's Myo armband\footnote{\url{https://www.myo.com/}}. Whilst this is a convenient solution for those who wish to use a prefabricated product, viable interaction modalities are constrained to the built-in sensors and a limitation of bodily placements imposed by the armband's construction.
 
 \paragraph{Supported Hardware} \label{hardware}
 
@@ -67,7 +67,7 @@ In section \ref{Examples}, we will present a set of example applications that us
 \begin{figure}[ht]
   \centering
     \includegraphics[width=\textwidth]{Chapters/Figures/technical/ServerBIT/ServerBIT_Archietecture_EXT.png}
-    \caption{Overview of the ServerBIT Architecture}
+    \caption{Overview of the ServerBIT Architecture.}
     \label{fig:diagram1}
 \end{figure}
 
@@ -98,17 +98,17 @@ ServerBIT is designed to be compatible with BITalino R-IoT devices, which transm
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\textwidth]{Chapters/Figures/technical/ServerBIT/ipv4_cmd_osx.png}
-    \caption{Network command generated and displayed in the browser (MacOS)}
+    \caption{Network command generated and displayed in the browser (MacOS).}
     \label{fig:cmd_osx}
 \end{figure}
 
 \paragraph{Uninterrupted Hardware Connections During Development}
 
-A trigger handler is automatically established and initiated for each device added to the network. The trigger handler runs in the background and listens for OSC messages addressed in the following format "/\textbf{deviceID/output"}. These messages authorise control of the separate digital and analog outputs on individual or multiple devices. This bidirectional communication intends to support interactive systems design where biofeedback mechanisms respond to physiological input in real-time. This approach can also be used to send commands to WiFi-enabled devices, bypassing the labour of bridging the devices over a wired serial connection.
+A trigger handler is automatically established and initiated for each device added to the network. The trigger handler runs in the background and listens for OSC messages addressed in the following format /\textbf{``deviceID/output''}. These messages authorise control of the separate digital and analog outputs on individual or multiple devices. This bidirectional communication intends to support interactive systems design where biofeedback mechanisms respond to physiological input in real-time. This approach can also be used to send commands to WiFi-enabled devices, bypassing the labour of bridging the devices over a wired serial connection.
 
 \paragraph{Biofeedback Control Using OSC} \label{Biofeedback}
 
-For each device added to the network, a trigger handler is automatically established and initiated. The trigger handler runs in the background and listens for OSC messages addressed in the following format \textit{"/\textbf{deviceID}/output"}. These messages authorise control of the separate digital and analog outputs on individual or multiple devices. This bidirectional communication intends to support the design of interactive systems where biofeedback mechanisms respond to physiological input in real-time. This approach can also be used to send commands to WiFi-enabled devices, bypassing the labour of bridging the devices over a wired serial connection.
+For each device added to the network, a trigger handler is automatically established and initiated. The trigger handler runs in the background and listens for OSC messages addressed in the following format \textit{``/\textbf{deviceID}/output''}. These messages authorise control of the separate digital and analog outputs on individual or multiple devices. This bidirectional communication intends to support the design of interactive systems where biofeedback mechanisms respond to physiological input in real-time. This approach can also be used to send commands to WiFi-enabled devices, bypassing the labour of bridging the devices over a wired serial connection.
 
 \section{Running A ``Hello World'' Example}
 
@@ -128,7 +128,7 @@ test client which prompts the back end to initialise a connection to a specified
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=65mm,scale=0.65]{Chapters/Figures/technical/ServerBIT/ClientBIT_html.png}
-    \caption{ClientBIT.html displaying an EMG signal in the browser}
+    \caption{ClientBIT.html displaying an EMG signal in the browser.}
     \label{fig:ClientBIT}
 \end{figure}
 %\subsection{Controlling Applications with Multiple Devices}
@@ -143,12 +143,12 @@ A major goal of ServerBIT was to improve the portability of sensor-based applica
 
 \paragraph{Saving a Preset}
 
-The ServerBIT configuration page is accessible from a web browser. When accessing the page for the first time, the user is presented with the default settings. In order to interact with the software, the user must select and pair at least one new device (see Section \ref{Pairing}). When completed, clicking \textbf{"Submit"} at the bottom of the form will save the current configuration into the ServerBIT home directory as \textit{config.json}.
+The ServerBIT configuration page is accessible from a web browser. When accessing the page for the first time, the user is presented with the default settings. In order to interact with the software, the user must select and pair at least one new device (see Section \ref{Pairing}). When completed, clicking \textbf{``Submit''} at the bottom of the form will save the current configuration into the ServerBIT home directory as \textit{config.json}.
 
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=\textwidth]{Chapters/Figures/technical/ServerBIT/Websockets_ctrl.png}
-    \caption{Workflow of the configuration saving process}
+    \caption{Workflow of the configuration saving process.}
     \label{fig:MVC_Diagram}
 \end{figure}
 
