@@ -1,4 +1,5 @@
 \section{ServerBIT: Abstracting from Hardware Specificities through Network-driven Middlewares}
+\label{technical_contributions:severbit}
 
 This section describes a middleware framework that facilitates rapid application development by abstracting hardware specificities. With this framework, users can easily bridge hardware devices with state-of-the-art network protocols, making it possible to stream data packets to their custom applications. As a result, the physiological sensor data can be integrated into their code base without needing a dedicated API or language-specific library.
 
@@ -47,7 +48,8 @@ Building upon the WebSocket-based software architecture, in our approach data, i
 
 Open Sound Control (OSC) has been implemented into a plethora of multimedia environments. Its use is supported by many common programming languages as well as a variety of hardware devices. More recently, it has been integrated into high-level software such as VST synthesisers and is becoming an increasingly popular option for designing New Interfaces for Musical Expression (a.k.a NIME); this can be justified by the integration of timestamps and forward synchronisation \cite{schmeder_best_2010}. Whilst OSC was developed to support research programs that focus on music and technology \cite{freed_features_2009}, it’s also proven to be a compelling choice for supporting other interaction modalities.
 
-\textcolor{red}{UPD vs TCP???}
+% \textcolor{red}{UPD vs TCP???}
+In a prototyping scenario, OSC benefits from operating on top of the UDP transport layer protocol, allowing new clients to be freely added or removed on the fly while the system continues to operate as normal. This method is favourable when considering the frequent interchange of sensor modalities, placements and users that comes as a necessary part of our research. Where alternative protocols, such as TCP, would require a handshaking process to authorise the messages being received, UDP will continuously emit data to the send address regardless. Additionally, compared to Bluetooth, this configuration bypasses the need for the individual devices to be paired each time they are being activated.
 
 Comparable with the WebSockets approach, each ‘frame’ of data is sent as a single bundle, containing sub-messages for each channel defined by a human-readable label. As a result, each input in the bundle can be processed simultaneously by the client, lending support to multi-modal solutions. The functionality given to the naming scheme makes it highly suitable for multiple device management. Where each message is specified by a numerical device ID and channel name, pattern matching language can be used to nominate multiple elements within the bundle. For example, if the user wants to pick out all the data from a specific device, they can listen for messages addressed as \textbf{/deviceID/*}. Similarly, data from the first two analogue channels from any device in the network would accumulate under the address \textbf{/*/{A1, A2}}.
 
@@ -68,7 +70,7 @@ As a bidirectional protocol, this layer also handles any biofeedback mechanisms 
   \centering
     \includegraphics[width=\textwidth]{Chapters/Figures/technical/ServerBIT/ServerBIT_Archietecture_EXT.png}
     \caption{Overview of the ServerBIT architecture.}
-    \label{fig:diagram1}
+    \label{fig:ServerBIT_architecture}
 \end{figure}
 
 \subsection{Design Principles}
@@ -93,7 +95,7 @@ On the configuration page presented in Figure \ref{fig:dev_selection}, users can
 
 \paragraph{Physiological Data Transmission Over Wi-Fi} \label{riot}
 
-ServerBIT is designed to be compatible with BITalino R-IoT devices, which transmit multiple data channels over a local Wi-Fi network. This alternative to Bluetooth-based communication holds several advantages. However, it necessitates for the user to set the IPv4 address of their computer to a specific static IP address. For users unfamiliar with this process, this will likely increase the burden of pairing new devices, thus interrupting application development. Before searching for new devices, ServerBIT will detect the current network configuration and generate a shell or bash command according to the operating system. The command can be validated and executed with the graphical interface. Upon execution, ServerBIT matches the computer's IPv4 address accordingly with the module's destination address.
+ServerBIT is designed to be compatible with BITalino R-IoT devices, which transmit multiple data channels over a local Wi-Fi network. This alternative to Bluetooth-based communication holds several advantages. However, it necessitates for the user to set the IPv4 address of their computer to a specific static IP address (see Appendix \ref{}. For users unfamiliar with this process, this will likely increase the burden of pairing new devices, thus interrupting application development. Before searching for new devices, ServerBIT will detect the current network configuration and generate a shell or bash command according to the operating system. The command can be validated and executed with the graphical interface. Upon execution, ServerBIT matches the computer's IPv4 address accordingly with the module's destination address.
 
 \begin{figure}[htbp]
     \centering
