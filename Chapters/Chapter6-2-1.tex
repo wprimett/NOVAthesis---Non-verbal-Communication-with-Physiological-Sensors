@@ -2,9 +2,10 @@
 
 \label{case_studies:latent_steps}
 
-This case study will be given attention over two segments, a technical primer followed by a user study. The first describes the development process and technical composition of a real-time visualisation system, the next compares this side-by-side with an alternative approach for visualisation, focused on a user perspective. The latter is framed in the following publication effort:
+This case study will be given attention over two segments, a technical primer followed by a user study. The first describes the development process and technical composition of a real-time visualisation system, providing details for the generative models used, alongside the interaction process. The next compares this system side-by-side with an alternative approach for visualisation to validate perspectives from the user's standpoint.
+% The latter is framed in the following publication effort:
 
-\printpublication{correia_designing_2022}
+% \printpublication{correia_designing_2022}
 
 % Nuno N. Correia, Raul Masu, William Primett, Stephan Jürgens, Jochen
 % Feitsch, and Hugo Plácido da Silva. 2022. Designing Interactive Visuals
@@ -97,7 +98,8 @@ The system utilises two machine learning models across two processes. The traini
 
 \subsection{Overview of Hardware and Software}
 
-We are placing five BITalino R-IoT devices\footnote{BITalino R-IoT: \url{https://bitalino.com/en/r-iot-kit}} on the body of the user, each device includes an Inertial Measurement Unit (IMU) to measure the relative orientation of the user’s limbs. We chose to place sensors in the following areas to represent the postural features of the user: upper left and right arm, abdomen, and the up left and right knee. We proposed this solution as a low-dimensional estimator of posture sufficient to differentiate and interpolate between a small set of postures.
+% We are placing five BITalino R-IoT devices\footnote{BITalino R-IoT: \url{https://bitalino.com/en/r-iot-kit}} on the body of the user, each device includes an Inertial Measurement Unit (IMU) to measure the relative orientation of the user’s limbs.
+We are placing five BITalino R-IoT devices (introduced Section \ref{subsec:riot} directly onto the body of the user, and measuring the relative orientation of the limbs using the IMU sensor data. We chose to place sensors in the following areas to represent the postural features of the user: upper left and right arm, abdomen, and the up left and right knee. We proposed this solution as a low-dimensional estimator of posture sufficient to differentiate and interpolate between a small set of postures.
 
 % \begin{figure}[ht]
 %     \centering
