@@ -1,7 +1,7 @@
-\Chatper{Case Study I: Breathing Correspondence}
+\chapter{Case Study I: Breathing Correspondence}
 \label{case_studies:soma_chi}
 
-\begin{figure*}[t]
+\begin{figure*}
   \centering
   \includegraphics[width=0.9\textwidth]{Chapters/Figures/soma_chi/deep_pressure_graphic-01.png}
   \caption[Deep pressure, pressing onto the torso]{Deep pressure, pressing onto the torso, first using weak (left) and then strong pressure (right).}
@@ -113,7 +113,7 @@ The workshop structure was grounded in soma design theory which places sensory e
 Each of the four sessions lasted about three hours including the setup and incorporated shape-changing actuators in various shapes and sizes, as well as additional fabrics to attach them to different parts of the body and create restriction. The actuators are part of the Soma Bits toolkit \cite{windlin_soma_2019}, a collection of shapes and actuators designed to facilitate soma design workshops, and consist of Thermoplastic Polyurethane (TPU)-coated nylon shapes which can be inflated or deflated at different speeds or stay at a constant level of inflation. Further in the text, we will be using ``pillows'', ``inflatables'', ``pneumatic pads'' interchangeably to describe these shapes. The actuation was controlled wirelessly with an Arduino-based device, capable of inflating and deflating the pneumatic pads at variable pump speed (max 3L/min) within the pressure range of 450 - 1950 hPa, as well as providing real-time pressure sensor readings.
 
 The framework used for sensing and actuation control is illustrated in Figure \ref{fig:workflow}.
-To capture breathing, we used an inductive respiration (respiratory inductance plethysmography, described in Section \ref{respiratory_sensing}) sensor\footnote{\url{https://biosignalsplux.com/products/sensors/respiration-inductive.html}} (1) which measures the relative displacement of the chest or stomach, depending on its placement. The sensor data is continuously acquired to compute the subject's breathing rate, which in turn influences the time dynamics of the shape-changing feedback. This data exchange is handled by (4) a Processing server, directing control messages between the browser-based Node-RED GUI (2) and the actuation hardware (5 \& 6) via Open Sound Control (OSC)}. The visual interface allows for the different actuation sequences to be executed with adjustable parameters, while a separate Python script runs in the background for signal processing and feature extraction (3).
+To capture breathing, we used an inductive respiration (respiratory inductance plethysmography, described in Section \ref{sec:sensing}) sensor\footnote{\url{https://biosignalsplux.com/products/sensors/respiration-inductive.html}} (1) which measures the relative displacement of the chest or stomach, depending on its placement. The sensor data is continuously acquired to compute the subject's breathing rate, which in turn influences the time dynamics of the shape-changing feedback. This data exchange is handled by (4) a Processing server, directing control messages between the browser-based Node-RED GUI (2) and the actuation hardware (5 \& 6) via Open Sound Control (OSC). The visual interface allows for the different actuation sequences to be executed with adjustable parameters, while a separate Python script runs in the background for signal processing and feature extraction (3).
 
 \begin{figure*}[t]
     \centering
@@ -197,7 +197,7 @@ Later, Annkatrin continued to experiment with asymmetric actuation using two pad
 
  \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{Chapters/Figures/soma_chi/fig6_positions_numbers.png}
+  \includegraphics[width=0.65\linewidth]{Chapters/Figures/soma_chi/fig6_positions_numbers.png}
   \caption[Applying symmetric and asymmetric deep pressure]{Applying symmetric and asymmetric deep pressure to the shoulders (1), neck (2) and lower back (3).}
     \label{fig:neck}
     % \Description[Applying symmetric and asymmetric deep pressure to the shoulders, neck and lower back]{Applying symmetric deep pressure to the shoulders, as well as asymmetric deep pressure to the neck and lower back. In the latter case, pressure is applied more strongly to the right side of the body.}

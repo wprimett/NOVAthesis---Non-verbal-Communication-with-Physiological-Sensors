@@ -70,7 +70,7 @@ So we begin questing: How can we expand the possibilities of the existing body m
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.70\textwidth]{Chapters/Figures/modi_dis/drawing_samples2.png}
+    \includegraphics[width=0.5\textwidth]{Chapters/Figures/modi_dis/drawing_samples2.png}
     \caption{Four Examples of Body Sheets used in Latent Steps.}
     \label{fig:draw_samples}
 \end{figure}
@@ -96,47 +96,45 @@ Given that the bottlneck layer requires lower dimentionality data to generate a 
 
 \subsubsection*{Visual Data}
 
-The image generation model is trained on a collection of 100 bodily map illustrations provided by 10 dancers, who were asked to colour areas of muscular activation and balance during movement. This criteria was inspired by Sylvia Rijmer's \textit{Prime Mover} principles, defined by her as a particular place (locus/loci) in the body from which movement initiates \cite{jurgens_designing_2020, rijmer_negotiating_2022}. These original drawings were produced during the first co-design workshop that was documented as Stage 1 in Chapter \ref{preliminary_actions:modi_ws1}, for which the participants were required to develop and perform a five-part movement sequence and produce corresponding body maps for each. The workshop involved three activities (the first on day 1, the other two on day 2):
+The image generation model is trained on a collection of 100 bodily map illustrations provided by 10 dancers, who were asked to colour areas of muscular activation and balance during movement. This criteria was inspired by Sylvia Rijmer's \textit{Prime Mover} principles, defined by her as a particular place (locus/loci) in the body from which movement initiates \cite{jurgens_designing_2020, rijmer_negotiating_2022}. These original drawings were produced during the first co-design workshop that was documented as Stage 1 in Chapter \ref{preliminary_actions:modi_ws1}, for which the participants were required to develop and perform a five-part movement sequence and produce corresponding body maps for each. This approach of combining improvisation with different, discrete, sections around a theme is comparable to the procedure followed by McDonald to generate an ML dataset for a dance piece \cite{mcdonald_dance_2018}. The workshop involved three activities (the first on day 1, the other two on day 2):
 % Each drawing correlates to a physical gesture assigned to one of the following semantic descriptors: \textit{Comfortable}, \textit{Difficult}, \textit{Undefinable}, \textit{Aesthetic Form}; and \textit{Open}.
 % Additional details of the data collection are provided in Section \ref{subsec:modi_study_design}.
 
 \begin{enumerate}
-    \item  The dancers prepared a movement exercise, consisting of five thematic sections, agreed upon collectively between them: \textit{Comfortable}, \textit{Difficult}, \textit{Undefinable}, \textit{Aesthetic Form}; and \textit{Open}. Each dancer then created their own interpretation of the movement exercise, based on improvisation. This approach of combining improvisation with different, discrete, sections around a theme is similar (although smaller in scale) to the procedure followed by McDonald to generate an ML dataset for a dance piece \cite{mcdonald_dance_2018}.
+    \item  The dancers prepared a movement exercise, consisting of five thematic sections, agreed upon collectively between them: \textit{Comfortable}, \textit{Difficult}, \textit{Undefinable}, \textit{Aesthetic Form}; and \textit{Open}. Each dancer then created their own interpretation of the movement exercise, based on improvisation.
     \item Each dancer was asked to perform the movement exercise, which was documented. The documentation consisted of video recordings and collection of sensor data of each dancer (explained further in Sections \ref{sec:latent_technical_composition} and \ref{subsec:modi_study_design}). The data was labeled according to the dancer and to the section of movement exercise.
     \item The dancers drew body maps based on the movement exercise and their somatic impressions of it. We asked performers to create two types of drawings for each section of the choreography: free-form body maps and outline-based body maps, the two types of body maps identified in Section \ref{lit_review:self_report}.
 \end{enumerate}
 
-For the image generation model described from the the following Section \ref{sec:latent_technical_composition}, we would only train the outline-based body maps, for which the free-form drawings are reserved for an alternative approach, as explained in Section \ref{case_studies:modi_dis}. To finalize our visual dataset, these drawings are digitized, organized by performer and sequence, then pre-processed before training. The digital images are proceduarally cropped around the body map silhouette, pen strokes are segmented according to colour (blue or red), then to minimize the size of the data, the images are downsampled to 224 x 224 pixels and converted to greyscale format. Although the coloured strokes could depict additional meaning to the body maps, the primary focus was on the locational qualities of sensation, hence opting for monotone representations.
+For the image generation model described from the the following Section \ref{sec:latent_technical_composition}, we would only train the outline-based body maps, for which the free-form drawings are reserved for an alternative approach, as explained in Section \ref{case_studies:modi_dis}. To finalise our visual dataset, these drawings are digitised, organised by performer and sequence, then pre-processed before training. The digital images are proceduarally cropped around the body map silhouette, pen strokes are segmented according to colour (blue or red), then to minimise the size of the data, the images are downsampled to 224 x 224 pixels and converted to greyscale format. Although the coloured strokes could depict additional meaning to the body maps, the primary focus was on the locational qualities of sensation, hence opting for monotone representations.
 
 \section{Technical Composition}
-\ref{sec:latent_technical_composition}
+\label{sec:latent_technical_composition}
 
 \subsection*{System Architecture}
 
-The aim of the system is to continuously generate bodily map images that correspond to postural data, which is determined by a set of embodied sensors. The frames are then saved as a means for recording the first-person experience. The frames are then concatenated to produce a video steam that can be used for self-reflection after the activity takes place. The system utilises two machine learning models across two processes. The training process takes data from a corpus of images and sensor values as input for each model respectively. The learnt model enables continuous mappings to be generated based on these inputs. The interaction process relies on the previously trained models and takes IMU data in real-time to generate reconstructed images. Our workflow is illustrated in Figure \ref{fig:system_overview}.
+The aim of the system is to continuously generate bodily map images that correspond to postural data, which is determined by a set of embodied sensors. The frames are then saved as a means for recording the first-person experience. The frames are then concatenated to produce a video steam that can be used for self-reflection after the activity takes place. The system utilises two machine learning models across two processes. The training process takes data from a corpus of images and sensor values as input for each model respectively. The learnt model enables continuous mappings to be generated based on these inputs. The interaction process relies on the previously trained models and takes IMU data in real-time to generate reconstructed images. Our workflow is illustrated in Figure \ref{fig:system_overview}. The first model, which is trained in the image corpus is programmed using the TensorFlow library \cite{abadi_tensorflow_2016} in Python and the second model, responsible for processing sensor data is implemented in an OpenFrameworks\footnote{openFrameworks: \url{https://openframeworks.cc/}.} application using the RapidLib C++ library\footnote{ofxRapidLib: \url{https://github.com/mzed/ofxRapidLib/}} for interactive machine learning.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{Chapters/Figures/modi_dis/Latent-Steps-Architecture.png}
+    \includegraphics[width=0.5\textwidth]{Chapters/Figures/modi_dis/Latent-Steps-Architecture.png}
     \caption{System Overview.}
     \label{fig:system_overview}
 \end{figure}
 
-\subsection*{Overview of Hardware and Software}
+% \subsection*{Overview of Hardware and Software}
 
 % We are placing five BITalino R-IoT devices\footnote{BITalino R-IoT: \url{https://bitalino.com/en/r-iot-kit}} on the body of the user, each device includes an Inertial Measurement Unit (IMU) to measure the relative orientation of the user’s limbs.
-We are placing five BITalino R-IoT devices (introduced Section \ref{subsec:riot} directly onto the body of the user, and measuring the relative orientation of the limbs using the IMU sensor data. We chose to place sensors in the following areas to represent the postural features of the user: upper left and right arm, abdomen, and the up left and right knee. We proposed this solution as a low-dimensional estimator of posture sufficient to differentiate and interpolate between a small set of postures.
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=\textwidth]{Chapters/Figures/modi_dis/deva_imu_abdomen.jpg}
-    \caption{Sensor device worn on the abdomen and right arm.}
-    \label{fig:placement}
-\end{figure}
+We are placing five BITalino R-IoT devices (introduced Section \ref{subsec:riot}) directly onto the body of the user (Figure \ref{fig:placement}), and measuring the relative orientation of the limbs using the IMU sensor data. We chose to place sensors in the following areas to represent the postural features of the user: upper left and right arm, abdomen, and the up left and right knee. We proposed this solution as a low-dimensional estimator of posture sufficient to differentiate and interpolate between a small set of postures.
 
 % The absolute orientation of the sensors are computed within the firmware of the sensor module using the formulas provided in the BITalino R-IoT firmware\footnote{BITalino R-IoT firmware: \url{https://github.com/BITalinoWorld/firmware-bitalino-riot}}. The firmware implements Sebastian Madwick’s algorithm for orientation filtering \cite{madgwick_ecient_nodate}.
 
-The first model, which is trained in the image corpus is programmed using the TensorFlow library \cite{abadi_tensorflow_2016} in Python and the second model, responsible for processing sensor data is implemented in an OpenFrameworks\footnote{openFrameworks: \url{https://openframeworks.cc/}.} application using the RapidLib C++ library\footnote{ofxRapidLib: \url{https://github.com/mzed/ofxRapidLib/}} for interactive machine learning.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Chapters/Figures/modi_dis/deva_imu_abdomen.jpg}
+    \caption{Sensor device worn on the abdomen and right arm.}
+    \label{fig:placement}
+\end{figure}
 
 \subsection*{Training Process}
 \label{training_process}
@@ -154,9 +152,9 @@ Using the first model, we train a Convolutional Autoencoder (CAE) to interpret t
 
 The Convolutional Autoencoder (CAE) is an unsupervised machine learning model, where by the training data is not labelled, independent from any categorical descriptor. The training process initialises with an encoder function that compresses the images into vector representations of 32 floats, corresponding to their relative position in the latent dimension. This compressed representation of the image is assigned according to the visual features interpreted by the model, commonly referred to as latent space. As a result, drawings that are more visually related can be described as closer together, where as dissimilar inputs are located further apart in the latent space. We use following formula where \textit{i} is the complete 256 x 512 pixel representation of a given image with ID of \textit{n} and \textit{v} is the latent vector (32 float values) produced by the autoencoder:
 
-\begin{equation}
+% \begin{equation}
 \[ f:i_n\xrightarrow{}v^n = \{V_0, V_1,... ,V_{32}\} \]
-\end{equation}
+% \end{equation}
 
 The decoder function takes the latent vector as an input and reconstructs a new image, incorporating visual features from the training dataset. The decoder can produce the close-to-identical image to that of the original dataset, by feeding the same vector calculated by the encoder. In addition to this, we can also generate continuous interpolations between the drawings when applying vector arithmetic, resulting in a new image that the model has not been explicitly trained with.
 % To evaluate the capabilities of our model, we will apply similarity measurements comparing the reconstructed output to the training data (described in further in section \ref{data_analysis}).
@@ -174,15 +172,15 @@ For every generated image that we want to associate with a particular posture, w
 
 The interaction loop is completed when we feed the output of the regression model directly to the bottleneck layer of the CAE. Where \textit{p} is the posture represented by orientational values from the sensors and \textit{v} is the latent vector representation of a particular image \textit{i} from the training dataset, we can bridge data from the two models with the following formula:
 
-\begin{equation}
+% \begin{equation}
 \[ f:p_n\xrightarrow{}v^n \xrightarrow{}i_n \]
-\end{equation}
+% \end{equation}
 
 \subsection*{Latent Space Conditioning and Navigation}
 
-Where the CAE is used to train an unsupervised model that operates on unlabled data, numerically speaking, there is an arbitrary relationship between the vector representations distributed in the latent space, since the encoding and decoding processes rely on random variables. In recent literature, conditional autoencoders have proven to be a successful method for contextualizing latent dimentions, capable of generating photorealistic images, allowing for semantic control of the model's output \cite{zhang_age_2017}.
+Where the CAE is used to train an unsupervised model that operates on unlabeled data, numerically speaking, there is an arbitrary relationship between the vector representations distributed in the latent space, since the encoding and decoding processes rely on random variables. In recent literature, conditional autoencoders have proven to be a successful method for contextualizing latent dimentions, capable of generating photo-realistic images, allowing for semantic control of the model's output \cite{zhang_age_2017}.
 
-As a simlified alternative to developing conditioneal autencoders, we propose a way of intercepting the latent space with the output separate model, trained to interpolate between the known vectors that will reconstruct the original input. Given the intention of ``navigating'' our latent space, these may be considered to serve as contextual ``waypoints'', for which we are able to compute meaninful trajectories in a multi-dimensional space. Our latent space navigation framework is illustrated in Section \ref{subsec:modi_study_stages}, Figure \ref{fig:ml-model}.
+As a simplified alternative to developing conditional autencoders, we propose a way of intercepting the latent space with the output separate model, trained to interpolate between the known vectors that will reconstruct the original input. Given the intention of ``navigating'' our latent space, these may be considered to serve as contextual ``waypoints'', for which we are able to compute meaninful trajectories in a multi-dimensional space. Our latent space navigation framework is illustrated in Section \ref{subsec:modi_study_stages}, Figure \ref{fig:ml-model}.
 
 \section{User Feedback \& Discussion}
 

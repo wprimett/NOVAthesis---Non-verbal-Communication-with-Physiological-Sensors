@@ -702,11 +702,11 @@
                                 \renewcommand\thealgorithm{\thechapter.\arabic{algorithm}}%
                                 \@addtoreset{algorithm}{chapter}%
                         }}}
-      {listsofglossaries}{\options{/@nt/list/listof/.cpush={%
+      {listsofglossaries}{\options{/@nt/list/listof/.cpush={
                               \iftoggle{/novathesis/glsxindy}%
                                   {\printglossaries}%
                                   {\printnoidxglossaries}%
-                          }}}%
+                          }}}
   }[\options{/@nt/list/listof/.cpush={\csuse{#1}}}]%
 }
 

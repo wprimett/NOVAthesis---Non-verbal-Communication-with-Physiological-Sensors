@@ -1,13 +1,13 @@
 \section{BITalino R-IoT: Overview and Assessment}
 
-We begin this section by introducing the BITalino R-IoT, serving as a technical cornerstone for the wearable sensor applications develpoed as part of the thesis reasearch outcomes. We then review some of the key technical afffordances that are deemed necessary in the scope of our work, nameley in regards to real-time feature extraction, web-based communication protocols, along with the possibliity to aquire data from many sources.
+We begin this section by introducing the BITalino R-IoT, serving as a technical cornerstone for the wearable sensor applications developed as part of the thesis research outcomes. We then review some of the key technical affordances that are deemed necessary in the scope of our work, namely in regards to real-time feature extraction, web-based communication protocols, along with the possibility to acquire data from many sources.
 
-\subsection*{Technical Specifcation}
+\subsection*{Technical Specification}
 \label{subsec:riot}
 
 % \subsection*{Device Overview}
 
-The BITalino R-IoT module is the 7th generation of IRCAM's wireless sensor digitizing unit \cite{noauthor_bitalino_nodate}, an essential tool linking motion sensing, gestural recognition and Live Performance Arts. Since 2001, IRCAM aimed to provide a low latency, high data-rate \& resolution and stage compatible devices, capable of streaming gestural information to the computer from multiple performers. The BITalino R-IoT embeds a 9-axis digital IMU sensor (LSM9DS1) featuring a 3-axis accelerometer, a 3-axis gyroscope and a 3-axis magnetometer, allowing for instance the onboard computation of the absolute orientation of the module \cite{matzka_developing_2019}.
+The BITalino R-IoT module is the 7th generation of IRCAM's wireless sensor digitising unit \cite{noauthor_bitalino_nodate}, an essential tool linking motion sensing, gestural recognition and Live Performance Arts. Since 2001, IRCAM aimed to provide a low latency, high data-rate \& resolution and stage compatible devices, capable of streaming gestural information to the computer from multiple performers. The BITalino R-IoT embeds a 9-axis digital IMU sensor (LSM9DS1) featuring a 3-axis accelerometer, a 3-axis gyroscope and a 3-axis magnetometer, allowing for instance the onboard computation of the absolute orientation of the module \cite{matzka_developing_2019}.
 
 The absolute orientation can be computed within the embedded firmware of the device\footnote{BITalino R-IoT firmware: \url{https://github.com/BITalinoWorld/firmware-bitalino-riot}}, which implements Sebastian Madwick’s algorithm for orientation filtering \cite{madgwick_ecient_nodate}. The sensor is attached to the SPI port to sample the 16-bit motion data at high speed. In addition to this, there are two 12-bit ADC inputs, compatible with the BITalino sensor modules. Throughout this chapter, we refer to the BITalino R-IoT as R-IoT.
 
@@ -45,7 +45,7 @@ Results show that as a base-latency, using one device at a placed a metre away f
 
 We found a slight increase in latency when using more devices on one network and as we increased the distance. Whilst this should be taken account for data synchronisation tasks, we would consider the BITalino R-IoT to be a suitable device for studies collecting physiological data from multiple sources. Our tests also support the use of the OSC protocol for this purpose.
 
-\subsection{Experimental Protocol}
+\subsection*{Experimental Protocol}
 
 In our tests, we calculate the time taken for the host computer to receive a response to a stimulus which changes in the analog input on the R-IoT device. The stimulus signal is distributed to multiple devices which are included in the network to see the effect this has on latency. The test is run for a duration of several minutes to assess how the latency deviates over time.
 
@@ -76,7 +76,7 @@ To test multiple devices simultaneously, we feed the same reference signal from 
 \subsection*{Device Firmware}
 Each device is flashed with the default firmware, which implements algorithms to compute the absolute orientation of the device from the raw IMU data, providing quaternions and Euler angles every time a data packet is transmitted. For this reason, our tests can be considered to account for the latency that occurs when retrieving motion data.
 
-\subsection{Results \& Discussion}
+\subsection*{Results \& Discussion}
 
 \subsection*{Conditions}
 For these tests, the device(s) were first placed less than 1 metre away from the router which was connected to the host via an ethernet connection. From the test, we extracted 248 triggers form a total duration of approximately 8 minutes and 15 seconds. We then repeated the tests with the device(s) placed 5 metres away from the router.
@@ -150,10 +150,10 @@ For the duration of the test, we accumulate the latencies for every trigger and 
             \\[-1em]
             \hline
             \end{tabular}
-        % \caption{Latency at 5 metres.}
+        \caption{Latency at 5 metres.}
         \label{table:latency_tab2}
      \end{subtable}
-     \caption{Latency measurements for one device (5 metres).}
+     \caption{Latency measurements for one device.}
     \label{table:latency_one_device}
 \end{table}
 
@@ -211,12 +211,12 @@ The minimum, maximum and mean latency measures for the individual devices are sh
             \\[-1em]
             \hline
             \end{tabular}
-        % \caption{Latency at 1 metre.}
+        \caption{Latency at 1 metre.}
         \label{table:latency_tab3}
     \end{subtable}
     \hfill
     % \hspace{2em}
-    \caption{Latency measurements for four devices (1 metre).}
+    \caption{Latency measurements for four devices.}
     \label{table:latency_four_devices}
 \end{table}
 
@@ -248,12 +248,12 @@ The minimum, maximum and mean latency measures for the individual devices are sh
             \\[-1em]
             \hline
             \end{tabular}
-        % \caption{Latency at 5 metres.}
+        \caption{Latency at 5 metres.}
         \label{table:latency_tab4}
     \end{subtable}
     \hfill
     % \hspace{2em}
-    \caption{Latency measurements for four devices (5 metres).}
+    \caption{Latency measurements for four devices.}
     \label{table:latency_four_devices_2}
 \end{table}
 
@@ -307,7 +307,7 @@ As well as the response time between each individual device and the host compute
     \label{fig:latency_fig7}
 \end{figure}
 
-\subsection{Summary}
+\subsection*{Summary}
 
 \subsection*{Limitations}
 \label{subsec:latency_limitations}
